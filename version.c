@@ -1,2 +1,2 @@
-const char Version[] = "OSFW-" GIT_HASH;
+const char Version[] = "OpenQUACK";
 

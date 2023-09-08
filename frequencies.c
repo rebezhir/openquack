@@ -19,7 +19,7 @@
 #include "settings.h"
 
 const uint32_t LowerLimitFrequencyBandTable[7] = {
-	 1800000,
+	 5000000,
 	10800000,
 	13600000,
 	17400000,
@@ -45,7 +45,7 @@ const uint32_t UpperLimitFrequencyBandTable[7] = {
 	34999990,
 	39999990,
 	46999990,
-	130000000,
+	60000000,
 };
 
 const uint16_t StepFrequencyTable[6] = {

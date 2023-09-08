@@ -23,7 +23,6 @@
 #include "app/fm.h"
 #include "app/generic.h"
 #include "app/scanner.h"
-#include "app/spectrum.h"
 #include "audio.h"
 #include "dtmf.h"
 #include "frequencies.h"
@@ -112,7 +111,7 @@ static void MAIN_Key_DIGITS(KEY_Code_t Key, bool bKeyPressed, bool bKeyHeld) {
     gUpdateStatus = true;
     switch (Key) {
         case KEY_0:
-            ACTION_FM();
+            //ACTION_FM();
             break;
 
         case KEY_1:
@@ -195,7 +194,7 @@ static void MAIN_Key_DIGITS(KEY_Code_t Key, bool bKeyPressed, bool bKeyHeld) {
             break;
 
         case KEY_5:
-            APP_RunSpectrum();
+            //APP_RunSpectrum();
             gRequestDisplayScreen = DISPLAY_MAIN;
             break;
 

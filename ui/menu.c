@@ -33,11 +33,11 @@ static const char MenuList[][7] = {
 	"SQL",    "STEP",    "TXP",    "R_DCS",
 	"R_CTCS", "T_DCS",   "T_CTCS", "SFT-D",
 	// 0x08
-	"OFFSET", "W/N",     "SCR",    "BCL",
-	"MEM-CH", "SAVE",    "VOX",    "ABR",
+	"OFFSET", "WIDTH",     "SCRMBL",    "BCL",
+	"MEM-CH", "SAVE",    "VOX",    "LIGHT",
 	// 0x10
-	"TDR",    "WX",      "BEEP",   "TOT",
-	"VOICE",  "SC-REV",  "MDF",    "AUTOLK",
+	"DUALRX",    "CROSS",      "BEEP",   "TOT",
+	"VOICE",  "SC-REV",  "DISPL",    "AUTOLK",
 	// 0x18
 	"S-ADD1", "S-ADD2",  "STE",    "RP-STE",
 	"MIC",    "1-CALL",  "S-LIST", "SLIST1",
@@ -46,7 +46,7 @@ static const char MenuList[][7] = {
 	"DWCODE", "D-ST",    "D-RSP",  "D-HOLD",
 	// 0x28
 	"D-PRE",  "PTT-ID",  "D-DCD",  "D-LIST",
-	"PONMSG", "ROGER",   "VOL",    "AM",
+	/*"PONMSG"*/"DUMMY", "ROGER",   "ACCUM",    "AM",
 	// 0x30
 	"DEL-CH",  "RESET",  "ALL TX", "F-LOCK",
     "200TX",   "500TX",  "350EN", "SCREN",

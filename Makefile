@@ -38,7 +38,6 @@ OBJS += app/generic.o
 OBJS += app/main.o
 OBJS += app/menu.o
 OBJS += app/scanner.o
-OBJS += app/spectrum.o
 OBJS += app/uart.o
 OBJS += audio.o
 OBJS += bitmaps.o
@@ -64,7 +63,6 @@ OBJS += ui/rssi.o
 OBJS += ui/scanner.o
 OBJS += ui/status.o
 OBJS += ui/ui.o
-OBJS += ui/welcome.o
 OBJS += version.o
 
 OBJS += main.o

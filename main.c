@@ -33,9 +33,9 @@
 #include "radio.h"
 #include "settings.h"
 #include "ui/lock.h"
-#include "ui/welcome.h"
 
-static const char Version[] = "UV-K5 Firmware, v0.01 Open Edition\r\n";
+
+static const char Version[] = "OpenQUACK\r\n";
 
 void _putchar(char c)
 {
@@ -93,9 +93,9 @@ void Main(void)
 		BOOT_Mode_t BootMode;
 		uint8_t Channel;
 
-		UI_DisplayWelcome();
+		//UI_DisplayWelcome();
 		BACKLIGHT_TurnOn();
-		SYSTEM_DelayMs(1000);
+		//SYSTEM_DelayMs(1000);
 		gMenuListCount = 50;
 
 		BootMode = BOOT_GetMode();
