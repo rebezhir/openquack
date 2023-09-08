@@ -1,7 +1,7 @@
 # Проект ПО для портативных радиостанций Quansheng UV-K5
 ![OpenQUACK](images/openquack.png)
 
-Основан на коде https://github.com/DualTachyon  
+Основан на коде https://github.com/DualTachyon и https://github.com/fagci  
 
 __Несовместим со штатным CPS, требует установки [кастомного модуля CHIRP](https://github.com/rebezhir/openquack-chirp-driver) !!!__  
 
