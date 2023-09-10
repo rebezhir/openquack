@@ -20,7 +20,6 @@
 
 #include "app/action.h"
 #include "app/app.h"
-#include "app/fm.h"
 #include "app/generic.h"
 #include "app/scanner.h"
 #include "audio.h"
@@ -236,7 +235,7 @@ static void MAIN_Key_DIGITS(KEY_Code_t Key, bool bKeyPressed, bool bKeyHeld) {
 static void MAIN_Key_EXIT(bool bKeyPressed, bool bKeyHeld) {
     if (!bKeyHeld && bKeyPressed) {
         gBeepToPlay = BEEP_1KHZ_60MS_OPTIONAL;
-        if (!gFmRadioMode) {
+        if (true) {
             if (gScanState == SCAN_OFF) {
                 if (gInputBoxIndex == 0) {
                     return;
@@ -373,12 +372,7 @@ static void MAIN_Key_UP_DOWN(bool bKeyPressed, bool bKeyHeld,
 }
 
 void MAIN_ProcessKeys(KEY_Code_t Key, bool bKeyPressed, bool bKeyHeld) {
-    if (gFmRadioMode && Key != KEY_PTT && Key != KEY_EXIT) {
-        if (!bKeyHeld && bKeyPressed) {
-            gBeepToPlay = BEEP_500HZ_60MS_DOUBLE_BEEP_OPTIONAL;
-        }
-        return;
-    }
+
     if (gDTMF_InputMode && !bKeyHeld && bKeyPressed) {
         char Character = DTMF_GetCharacter(Key);
         if (Character != 0xFF) {

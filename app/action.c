@@ -18,11 +18,9 @@
 
 #include "app/app.h"
 #include "app/dtmf.h"
-#include "app/fm.h"
 #include "app/scanner.h"
 #include "audio.h"
 #include "bsp/dp32g030/gpio.h"
-#include "driver/bk1080.h"
 #include "driver/bk4819.h"
 #include "driver/gpio.h"
 #include "functions.h"
@@ -69,42 +67,12 @@ static void ACTION_Monitor(void) {
         gScanPauseMode = true;
     }
     RADIO_SetupRegisters(true);
-    if (gFmRadioMode) {
-        FM_Start();
-        gRequestDisplayScreen = DISPLAY_FM;
-    } else {
-        gRequestDisplayScreen = gScreenToDisplay;
-    }
+    gRequestDisplayScreen = gScreenToDisplay;
+
 }
 
 void ACTION_Scan(bool bRestart) {
-    if (gFmRadioMode) {
-        if (gCurrentFunction != FUNCTION_RECEIVE &&
-            gCurrentFunction != FUNCTION_MONITOR &&
-            gCurrentFunction != FUNCTION_TRANSMIT) {
-            uint16_t Frequency;
-
-            GUI_SelectNextDisplay(DISPLAY_FM);
-            if (gFM_ScanState != FM_SCAN_OFF) {
-                FM_PlayAndUpdate();
-                gAnotherVoiceID = VOICE_ID_SCANNING_STOP;
-            } else {
-                if (bRestart) {
-                    gFM_AutoScan = true;
-                    gFM_ChannelPosition = 0;
-                    FM_EraseChannels();
-                    Frequency = gEeprom.FM_LowerLimit;
-                } else {
-                    gFM_AutoScan = false;
-                    gFM_ChannelPosition = 0;
-                    Frequency = gEeprom.FM_FrequencyPlaying;
-                }
-                BK1080_GetFrequencyDeviation(Frequency);
-                FM_Tune(Frequency, 1, bRestart);
-                gAnotherVoiceID = VOICE_ID_SCANNING_BEGIN;
-            }
-        }
-    } else if (gScreenToDisplay != DISPLAY_SCANNER) {
+    if (gScreenToDisplay != DISPLAY_SCANNER) {
         RADIO_SelectVfos();
         GUI_SelectNextDisplay(DISPLAY_MAIN);
         if (gScanState != SCAN_OFF) {
@@ -126,35 +94,18 @@ void ACTION_Vox(void) {
     gUpdateStatus = true;
 }
 
-static void ACTION_AlarmOr1750(bool b1750) {
+static void ACTION_1750(void) {
     gInputBoxIndex = 0;
-    if (b1750) {
-        gAlarmState = ALARM_STATE_TX1750;
-    } else {
-        gAlarmState = ALARM_STATE_TXALARM;
-    }
+    gAlarmState = ALARM_STATE_TX1750;
     gAlarmRunningCounter = 0;
     gFlagPrepareTX = true;
     gRequestDisplayScreen = DISPLAY_MAIN;
 }
 
-void ACTION_FM(void) {
-    if (gCurrentFunction != FUNCTION_TRANSMIT &&
-        gCurrentFunction != FUNCTION_MONITOR) {
-        if (gFmRadioMode) {
-            FM_TurnOff();
-            gInputBoxIndex = 0;
-            gVoxResumeCountdown = 80;
-            gFlagReconfigureVfos = true;
-            gRequestDisplayScreen = DISPLAY_MAIN;
-            return;
-        }
-        RADIO_SelectVfos();
-        RADIO_SetupRegisters(true);
-        FM_Start();
-        gInputBoxIndex = 0;
-        gRequestDisplayScreen = DISPLAY_FM;
-    }
+static void ACTION_SwitchAB(void) {
+}
+
+static void ACTION_VFOMR(void) {
 }
 
 void ACTION_Handle(KEY_Code_t Key, bool bKeyPressed, bool bKeyHeld) {
@@ -218,13 +169,13 @@ void ACTION_Handle(KEY_Code_t Key, bool bKeyPressed, bool bKeyHeld) {
             ACTION_Vox();
             break;
         case 6:
-            ACTION_AlarmOr1750(false);
+            ACTION_VFOMR();
             break;
         case 7:
-            ACTION_FM();
+            ACTION_SwitchAB();
             break;
         case 8:
-            ACTION_AlarmOr1750(true);
+            ACTION_1750();
             break;
     }
 }
