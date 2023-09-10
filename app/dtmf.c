@@ -15,7 +15,6 @@
  */
 
 #include <string.h>
-#include "app/fm.h"
 #include "app/scanner.h"
 #include "bsp/dp32g030/gpio.h"
 #include "driver/bk4819.h"

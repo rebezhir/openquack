@@ -15,7 +15,6 @@
  */
 
 #include "app/app.h"
-#include "app/fm.h"
 #include "app/generic.h"
 #include "app/scanner.h"
 #include "audio.h"
@@ -52,7 +51,7 @@ void GENERIC_Key_F(bool bKeyPressed, bool bKeyHeld)
 			gEeprom.KEY_LOCK = !gEeprom.KEY_LOCK;
 			gRequestSaveSettings = true;
 		} else {
-			if ((gFmRadioMode || gScreenToDisplay != DISPLAY_MAIN) && gScreenToDisplay != DISPLAY_FM) {
+			if (gScreenToDisplay != DISPLAY_MAIN) {
 				return;
 			}
 			gWasFKeyPressed = !gWasFKeyPressed;
@@ -62,14 +61,10 @@ void GENERIC_Key_F(bool bKeyPressed, bool bKeyHeld)
 			gUpdateStatus = true;
 		}
 	} else {
-		if (gScreenToDisplay != DISPLAY_FM) {
 			gBeepToPlay = BEEP_1KHZ_60MS_OPTIONAL;
 			return;
-		}
-		if (gFM_ScanState == FM_SCAN_OFF) {
-			gBeepToPlay = BEEP_1KHZ_60MS_OPTIONAL;
-			return;
-		}
+
+
 		gBeepToPlay = BEEP_440HZ_500MS;
 		gPttWasReleased = true;
 	}
@@ -110,7 +105,7 @@ void GENERIC_Key_PTT(bool bKeyPressed)
 		return;
 	}
 
-	if (gFM_ScanState == FM_SCAN_OFF) {
+
 		if (gCssScanMode == CSS_SCAN_MODE_OFF) {
 			if (gScreenToDisplay == DISPLAY_MENU || gScreenToDisplay == DISPLAY_FM) {
 				gRequestDisplayScreen = DISPLAY_MAIN;
@@ -161,10 +156,7 @@ void GENERIC_Key_PTT(bool bKeyPressed)
 			RADIO_StopCssScan();
 			gRequestDisplayScreen = DISPLAY_MENU;
 		}
-	} else {
-		FM_PlayAndUpdate();
-		gRequestDisplayScreen = DISPLAY_FM;
-	}
+
 	gAnotherVoiceID = VOICE_ID_SCANNING_STOP;
 	gPttWasPressed = true;
 }
