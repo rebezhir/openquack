@@ -17,14 +17,12 @@
 
 #include <string.h>
 #include "app/dtmf.h"
-#include "app/fm.h"
 #include "board.h"
 #include "bsp/dp32g030/gpio.h"
 #include "bsp/dp32g030/portcon.h"
 #include "bsp/dp32g030/saradc.h"
 #include "bsp/dp32g030/syscon.h"
 #include "driver/adc.h"
-#include "driver/bk1080.h"
 #include "driver/bk4819.h"
 #include "driver/crc.h"
 #include "driver/eeprom.h"
@@ -335,7 +333,6 @@ void BOARD_Init(void)
 	BOARD_GPIO_Init();
 	BOARD_ADC_Init();
 	ST7565_Init();
-	BK1080_Init(0, false);
 	CRC_Init();
 }
 
@@ -396,8 +393,8 @@ void BOARD_EEPROM_Init(void)
 	gEeprom.FM_IsMrMode = (FM.IsMrMode < 2) ? FM.IsMrMode : false;
 
 	// 0E40..0E67
-	EEPROM_ReadBuffer(0x0E40, gFM_Channels, sizeof(gFM_Channels));
-	FM_ConfigureChannelState();
+	//EEPROM_ReadBuffer(0x0E40, gFM_Channels, sizeof(gFM_Channels));
+	//FM_ConfigureChannelState();
 
 	// 0E90..0E97
 	EEPROM_ReadBuffer(0x0E90, Data, 8);

@@ -19,7 +19,6 @@
 #include <string.h>
 
 #include "app/dtmf.h"
-#include "app/fm.h"
 #include "audio.h"
 #include "bsp/dp32g030/gpio.h"
 #include "dcs.h"
@@ -553,7 +552,7 @@ void RADIO_SetupRegisters(bool bSwitchToFunction0) {
         }
     }
 
-    if (gEeprom.VOX_SWITCH && !gFmRadioMode && !gCurrentVfo->IsAM) {
+    if (gEeprom.VOX_SWITCH && !gCurrentVfo->IsAM) {
         BK4819_EnableVox(gEeprom.VOX1_THRESHOLD, gEeprom.VOX0_THRESHOLD);
         InterruptMask |= 0 | BK4819_REG_3F_VOX_FOUND | BK4819_REG_3F_VOX_LOST;
     } else {
@@ -619,7 +618,6 @@ void RADIO_SetVfoState(VfoState_t State) {
     if (State == VFO_STATE_NORMAL) {
         VfoState[0] = VFO_STATE_NORMAL;
         VfoState[1] = VFO_STATE_NORMAL;
-        gFM_ResumeCountdown = 0;
     } else {
         if (State == VFO_STATE_VOL_HIGH) {
             VfoState[0] = VFO_STATE_VOL_HIGH;
@@ -634,7 +632,6 @@ void RADIO_SetVfoState(VfoState_t State) {
             }
             VfoState[Channel] = State;
         }
-        gFM_ResumeCountdown = 5;
     }
     gUpdateDisplay = true;
 }

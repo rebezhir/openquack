@@ -18,34 +18,14 @@
 
 #include <string.h>
 
-#include "app/fm.h"
+
 #include "driver/eeprom.h"
 #include "driver/uart.h"
 #include "misc.h"
 
 EEPROM_Config_t gEeprom;
 
-void SETTINGS_SaveFM(void) {
-    uint8_t i;
-    struct {
-        uint16_t Frequency;
-        uint8_t Channel;
-        bool IsChannelSelected;
-        uint8_t Padding[4];
-    } State;
 
-    UART_LogSend("sFm\r\n", 5);
-
-    memset(&State, 0xFF, sizeof(State));
-    State.Channel = gEeprom.FM_SelectedChannel;
-    State.Frequency = gEeprom.FM_SelectedFrequency;
-    State.IsChannelSelected = gEeprom.FM_IsMrMode;
-
-    EEPROM_WriteBuffer(0x0E88, &State);
-    for (i = 0; i < 5; i++) {
-        EEPROM_WriteBuffer(0x0E40 + (i * 8), &gFM_Channels[i * 4]);
-    }
-}
 
 void SETTINGS_SaveVfoIndices(void) {
     uint8_t State[8];

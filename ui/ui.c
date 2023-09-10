@@ -16,11 +16,9 @@
 
 #include <string.h>
 #include "app/dtmf.h"
-#include "app/fm.h"
 #include "app/scanner.h"
 #include "driver/keyboard.h"
 #include "misc.h"
-#include "ui/fmradio.h"
 #include "ui/inputbox.h"
 #include "ui/main.h"
 #include "ui/menu.h"
@@ -41,7 +39,6 @@ void GUI_DisplayScreen(void)
 		UI_DisplayMain();
 		break;
 	case DISPLAY_FM:
-		UI_DisplayFM();
 		break;
 	case DISPLAY_MENU:
 		UI_DisplayMenu();
@@ -62,7 +59,6 @@ void GUI_SelectNextDisplay(GUI_DisplayType_t Display)
 			gIsInSubMenu = false;
 			gCssScanMode = CSS_SCAN_MODE_OFF;
 			gScanState = SCAN_OFF;
-			gFM_ScanState = FM_SCAN_OFF;
 			gAskForConfirmation = 0;
 			gDTMF_InputMode = false;
 			gDTMF_InputIndex = 0;

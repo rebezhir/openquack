@@ -14,10 +14,9 @@
  *     limitations under the License.
  */
 
-#include "app/fm.h"
+
 #include "audio.h"
 #include "bsp/dp32g030/gpio.h"
-#include "driver/bk1080.h"
 #include "driver/bk4819.h"
 #include "driver/gpio.h"
 #include "driver/system.h"
@@ -84,9 +83,6 @@ void AUDIO_PlayBeep(BEEP_Type_t Beep)
 		BK4819_RX_TurnOn();
 	}
 
-	if (gFmRadioMode) {
-		BK1080_Mute(true);
-	}
 	SYSTEM_DelayMs(20);
 	switch (Beep) {
 	case BEEP_1KHZ_60MS_OPTIONAL:
@@ -137,9 +133,6 @@ void AUDIO_PlayBeep(BEEP_Type_t Beep)
 	BK4819_WriteRegister(BK4819_REG_71, ToneConfig);
 	if (gEnableSpeaker) {
 		GPIO_SetBit(&GPIOC->DATA, GPIOC_PIN_AUDIO_PATH);
-	}
-	if (gFmRadioMode) {
-		BK1080_Mute(false);
 	}
 	if (gCurrentFunction == FUNCTION_POWER_SAVE && gRxIdleMode) {
 		BK4819_Sleep();
@@ -193,9 +186,6 @@ void AUDIO_PlaySingleVoice(bool bFlag)
 		if (gCurrentFunction == FUNCTION_RECEIVE || gCurrentFunction == FUNCTION_MONITOR) {
 			BK4819_SetAF(BK4819_AF_MUTE);
 		}
-		if (gFmRadioMode) {
-			BK1080_Mute(true);
-		}
 		GPIO_SetBit(&GPIOC->DATA, GPIOC_PIN_AUDIO_PATH);
 		gVoxResumeCountdown = 2000;
 		SYSTEM_DelayMs(5);
@@ -211,9 +201,6 @@ void AUDIO_PlaySingleVoice(bool bFlag)
 				} else {
 					BK4819_SetAF(BK4819_AF_OPEN);
 				}
-			}
-			if (gFmRadioMode) {
-				BK1080_Mute(false);
 			}
 			if (!gEnableSpeaker) {
 				GPIO_ClearBit(&GPIOC->DATA, GPIOC_PIN_AUDIO_PATH);
@@ -326,9 +313,6 @@ void AUDIO_PlayQueuedVoice(void)
 		} else {
 			BK4819_SetAF(BK4819_AF_OPEN);
 		}
-	}
-	if (gFmRadioMode) {
-		BK1080_Mute(false);
 	}
 	if (!gEnableSpeaker) {
 		GPIO_ClearBit(&GPIOC->DATA, GPIOC_PIN_AUDIO_PATH);

@@ -15,7 +15,7 @@
  */
 
 #include <string.h>
-#include "app/fm.h"
+
 #include "bitmaps.h"
 #include "driver/keyboard.h"
 #include "driver/st7565.h"
@@ -67,9 +67,7 @@ void UI_DisplayStatus(void)
 	if (gEeprom.VOICE_PROMPT != VOICE_PROMPT_OFF) {
 		memcpy(gStatusLine + 34, BITMAP_VoicePrompt, sizeof(BITMAP_VoicePrompt));
 	}
-	if (gFmRadioMode) {
-		memcpy(gStatusLine + 21, BITMAP_FM, sizeof(BITMAP_FM));
-	}
+
 	ST7565_BlitStatusLine();
 }
 
