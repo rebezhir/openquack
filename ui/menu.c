@@ -46,7 +46,7 @@ static const char MenuList[][7] = {
 	"DWCODE", "D-ST",    "D-RSP",  "D-HOLD",
 	// 0x28
 	"D-PRE",  "PTT-ID",  "D-DCD",  "D-LIST",
-	/*"PONMSG"*/"DUMMY", "ROGER",   "ACCUM",    "AM",
+	 "ROGER",   "ACCUM",    "AM",
 	// 0x30
 	"DEL-CH",  "RESET",  "ALL TX", "F-LOCK",
     "200TX",   "500TX",  "350EN", "SCREN",
@@ -136,11 +136,6 @@ static const char gSubMenu_PTT_ID[4][5] = {
 	"BOTH",
 };
 
-static const char gSubMenu_PONMSG[3][5] = {
-	"FULL",
-	"MSG",
-	"VOL",
-};
 
 static const char gSubMenu_ROGER[3][6] = {
 	"OFF",
@@ -386,10 +381,6 @@ void UI_DisplayMenu(void)
 		} else {
 			memcpy(String, Contact, 8);
 		}
-		break;
-
-	case MENU_PONMSG:
-		strcpy(String, gSubMenu_PONMSG[gSubMenuSelection]);
 		break;
 
 	case MENU_ROGER:

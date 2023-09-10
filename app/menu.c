@@ -132,7 +132,6 @@ int MENU_GetLimits(uint8_t Cursor, uint8_t *pMin, uint8_t *pMax) {
         case MENU_VOICE:
         case MENU_SC_REV:
         case MENU_MDF:
-        case MENU_PONMSG:
         case MENU_ROGER:
             *pMin = 0;
             *pMax = 2;
@@ -465,9 +464,6 @@ void MENU_AcceptSetting(void) {
             }
             return;
 
-        case MENU_PONMSG:
-            gEeprom.POWER_ON_DISPLAY_MODE = gSubMenuSelection;
-            break;
 
         case MENU_ROGER:
             gEeprom.ROGER = gSubMenuSelection;
@@ -778,10 +774,6 @@ void MENU_ShowCurrentSetting(void) {
 
         case MENU_D_LIST:
             gSubMenuSelection = gDTMFChosenContact + 1;
-            break;
-
-        case MENU_PONMSG:
-            gSubMenuSelection = gEeprom.POWER_ON_DISPLAY_MODE;
             break;
 
         case MENU_ROGER:
