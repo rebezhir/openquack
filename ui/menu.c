@@ -28,28 +28,28 @@
 #include "ui/menu.h"
 #include "ui/ui.h"
 
-static const char MenuList[][7] = {
+static const char MenuList[][11] = {
 	// 0x00
-	"SQL",    "STEP",    "TXP",    "R_DCS",
-	"R_CTCS", "T_DCS",   "T_CTCS", "SFT-D",
+	"SQUELCH",    "STEP",    "TX POWER",    "RX DCS",
+	"RX CTCSS", "TX DCS",   "TX CTCSS", "SHIFT TO",
 	// 0x08
-	"OFFSET", "WIDTH",     "SCRMBL",    "BCL",
-	"MEM-CH", "SAVE",    "VOX",    "LIGHT",
+	"OFFSET", "BANDWIDTH",     "SCRAMBLER",    "BUSY LOCK",
+	"MEM-CH", "SAVE",    "VOX",    "BACKLIGHT",
 	// 0x10
-	"DUALRX",    "CROSS",      "BEEP",   "TOT",
-	"VOICE",  "SC-REV",  "DISPL",    "AUTOLK",
+	"DUAL RX",    "CROSSBAND",      "BEEP",   "TOT",
+	"VOICE",  "SC-REV",  "DISPLAY",    "AUTOLOCK",
 	// 0x18
 	"S-ADD1", "S-ADD2",  "STE",    "RP-STE",
-	"MIC",    "1-CALL",  "S-LIST", "SLIST1",
+	"MIC",    "1-CALL",  "SCANLIST", "SCANLIST1",
 	// 0x20
-	"SLIST2", "AL-MOD",  "ANI-ID", "UPCODE",
-	"DWCODE", "D-ST",    "D-RSP",  "D-HOLD",
+	"SCANLIST2", "AL-MOD",  "ANI-ID", "UPCODE",
+	"DOWNCODE", "D-ST",    "D-RSP",  "D-HOLD",
 	// 0x28
 	"D-PRE",  "PTT-ID",  "D-DCD",  "D-LIST",
-	 "ROGER",   "ACCUM",    "AM",
+	 "ROGER",   "BATTERY",    "AM",
 	// 0x30
 	"DEL-CH",  "RESET",  "ALL TX", "F-LOCK",
-    "200TX",   "500TX",  "350EN", "SCREN",
+    "200TX",   "500TX",  "350EN", "SCRAMBLER",
 	// 0x38
 };
 
@@ -171,25 +171,15 @@ void UI_DisplayMenu(void)
 
 	memset(gFrameBuffer, 0, sizeof(gFrameBuffer));
 
-	for (i = 0; i < 3; i++) {
-		if (gMenuCursor || i) {
-			if ((gMenuListCount - 1) != gMenuCursor || (i != 2)) {
-				UI_PrintString(MenuList[gMenuCursor + i - 1], 0, 127, i * 2, 8, false);
-			}
-		}
-	}
-	for (i = 0; i < 48; i++) {
-		gFrameBuffer[2][i] ^= 0xFF;
-		gFrameBuffer[3][i] ^= 0xFF;
-	}
-	for (i = 0; i < 7; i++) {
-		gFrameBuffer[i][48] = 0xFF;
-		gFrameBuffer[i][49] = 0xFF;
+
+	UI_PrintString(MenuList[gMenuCursor], 0, 127,  0, 10, true);
+	for (i = 4; i < 123; i++) {
+		gFrameBuffer[1][i] ^= 0b10000000; //горизонтальная линия
 	}
 	NUMBER_ToDigits(gMenuCursor + 1, String);
-	UI_DisplaySmallDigits(2, String + 6, 33, 6);
+	UI_DisplaySmallDigits(2, String + 6, 4, 6);
 	if (gIsInSubMenu) {
-		memcpy(gFrameBuffer[0] + 50, BITMAP_CurrentIndicator, sizeof(BITMAP_CurrentIndicator));
+		memcpy(gFrameBuffer[3], BITMAP_CurrentIndicator, sizeof(BITMAP_CurrentIndicator));
 	}
 
 	memset(String, 0, sizeof(String));
@@ -400,10 +390,10 @@ void UI_DisplayMenu(void)
 		break;
 	}
 
-	UI_PrintString(String, 50, 127, 2, 8, true);
+	UI_PrintString(String, 0, 127, 2, 10, true);
 
 	if (gMenuCursor == MENU_OFFSET) {
-		UI_PrintString("MHz", 50, 127, 4, 8, true);
+		UI_PrintString("MHz", 0, 127, 4, 10, true);
 	}
 
 	if ((gMenuCursor == MENU_RESET || gMenuCursor == MENU_MEM_CH || gMenuCursor == MENU_DEL_CH) && gAskForConfirmation) {
@@ -412,11 +402,11 @@ void UI_DisplayMenu(void)
 		} else {
 			strcpy(String, "WAIT!");
 		}
-		UI_PrintString(String, 50, 127, 4, 8, true);
+		UI_PrintString(String, 0, 127, 4, 8, true);
 	}
 
 	if ((gMenuCursor == MENU_R_CTCS || gMenuCursor == MENU_R_DCS) && gCssScanMode != CSS_SCAN_MODE_OFF) {
-		UI_PrintString("SCAN", 50, 127, 4, 8, true);
+		UI_PrintString("SCAN", 0, 127, 4, 8, true);
 	}
 
 	if (gMenuCursor == MENU_UPCODE) {
@@ -426,14 +416,14 @@ void UI_DisplayMenu(void)
 	}
 	if (gMenuCursor == MENU_DWCODE) {
 		if (strlen(gEeprom.DTMF_DOWN_CODE) > 8) {
-			UI_PrintString(gEeprom.DTMF_DOWN_CODE + 8, 50, 127, 4, 8, true);
+			UI_PrintString(gEeprom.DTMF_DOWN_CODE + 8, 0, 127, 4, 8, true);
 		}
 	}
 	if (gMenuCursor == MENU_D_LIST && gIsDtmfContactValid) {
 		Contact[11] = 0;
 		memcpy(&gDTMF_ID, Contact + 8, 4);
 		sprintf(String, "ID:%s", Contact + 8);
-		UI_PrintString(String, 50, 127, 4, 8, true);
+		UI_PrintString(String, 0, 127, 4, 8, true);
 	}
 
 	if (gMenuCursor == MENU_R_CTCS || gMenuCursor == MENU_T_CTCS ||
@@ -442,7 +432,7 @@ void UI_DisplayMenu(void)
 
 			NUMBER_ToDigits((uint8_t)gSubMenuSelection, String);
 			Offset = (gMenuCursor == MENU_D_LIST) ? 2 : 3;
-			UI_DisplaySmallDigits(Offset, String + (8 - Offset), 105, 0);
+			UI_DisplaySmallDigits(Offset, String + (8 - Offset), 105, 6);
 	}
 
 	if (gMenuCursor == MENU_SLIST1 || gMenuCursor == MENU_SLIST2) {
@@ -455,16 +445,16 @@ void UI_DisplayMenu(void)
 		}
 
 		if (gSubMenuSelection == 0xFF || !gEeprom.SCAN_LIST_ENABLED[i]) {
-			UI_PrintString(String, 50, 127, 2, 8, 1);
+			UI_PrintString(String, 0, 127, 2, 8, 1);
 		} else {
-			UI_PrintString(String, 50, 127, 0, 8, 1);
+			UI_PrintString(String, 0, 127, 0, 8, 1);
 			if (IS_MR_CHANNEL(gEeprom.SCANLIST_PRIORITY_CH1[i])) {
 				sprintf(String, "PRI1:%d", gEeprom.SCANLIST_PRIORITY_CH1[i] + 1);
-				UI_PrintString(String, 50, 127, 2, 8, 1);
+				UI_PrintString(String, 0, 127, 2, 8, 1);
 			}
 			if (IS_MR_CHANNEL(gEeprom.SCANLIST_PRIORITY_CH2[i])) {
 				sprintf(String, "PRI2:%d", gEeprom.SCANLIST_PRIORITY_CH2[i] + 1);
-				UI_PrintString(String, 50, 127, 4, 8, 1);
+				UI_PrintString(String, 0, 127, 4, 8, 1);
 			}
 		}
 	}
