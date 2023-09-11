@@ -43,11 +43,6 @@ void GENERIC_Key_F(bool bKeyPressed, bool bKeyHeld)
 			if (!bKeyPressed) {
 				return;
 			}
-			if (gEeprom.KEY_LOCK) {
-				gAnotherVoiceID = VOICE_ID_UNLOCK;
-			} else {
-				gAnotherVoiceID = VOICE_ID_LOCK;
-			}
 			gEeprom.KEY_LOCK = !gEeprom.KEY_LOCK;
 			gRequestSaveSettings = true;
 		} else {
@@ -55,9 +50,6 @@ void GENERIC_Key_F(bool bKeyPressed, bool bKeyHeld)
 				return;
 			}
 			gWasFKeyPressed = !gWasFKeyPressed;
-			if (!gWasFKeyPressed) {
-				gAnotherVoiceID = VOICE_ID_CANCEL;
-			}
 			gUpdateStatus = true;
 		}
 	} else {
@@ -157,7 +149,6 @@ void GENERIC_Key_PTT(bool bKeyPressed)
 			gRequestDisplayScreen = DISPLAY_MENU;
 		}
 
-	gAnotherVoiceID = VOICE_ID_SCANNING_STOP;
 	gPttWasPressed = true;
 }
 

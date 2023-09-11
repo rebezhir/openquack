@@ -316,13 +316,12 @@ void APP_StartListening(FUNCTION_Type_t Function) {
                                                 (gEeprom.VOLUME_GAIN << 4) |
                                                 (gEeprom.DAC_GAIN << 0));
     }
-    if (gVoiceWriteIndex == 0) {
+
         if (gRxVfo->IsAM) {
             BK4819_SetAF(BK4819_AF_AM);
         } else {
             BK4819_SetAF(BK4819_AF_OPEN);
         }
-    }
     FUNCTION_Select(Function);
     if (Function == FUNCTION_MONITOR) {
         GUI_SelectNextDisplay(DISPLAY_MAIN);
@@ -548,10 +547,7 @@ static void APP_HandleVox(void) {
 }
 
 void APP_Update(void) {
-    if (gFlagPlayQueuedVoice) {
-        AUDIO_PlayQueuedVoice();
-        gFlagPlayQueuedVoice = false;
-    }
+
 
     if (gCurrentFunction == FUNCTION_TRANSMIT && gTxTimeoutReached) {
         gTxTimeoutReached = false;
@@ -571,7 +567,7 @@ void APP_Update(void) {
 
 
     if (gScreenToDisplay != DISPLAY_SCANNER && gScanState != SCAN_OFF &&
-        gScheduleScanListen && !gPttIsPressed && gVoiceWriteIndex == 0) {
+        gScheduleScanListen && !gPttIsPressed) {
         if (IS_FREQ_CHANNEL(gNextMrChannel)) {
             if (gCurrentFunction == FUNCTION_INCOMING) {
                 APP_StartListening(FUNCTION_RECEIVE);
@@ -591,15 +587,14 @@ void APP_Update(void) {
         gScheduleScanListen = false;
     }
 
-    if (gCssScanMode == CSS_SCAN_MODE_SCANNING && gScheduleScanListen &&
-        gVoiceWriteIndex == 0) {
+    if (gCssScanMode == CSS_SCAN_MODE_SCANNING && gScheduleScanListen) {
         MENU_SelectNextDCS();
         gScheduleScanListen = false;
     }
 
     if (gScreenToDisplay != DISPLAY_SCANNER &&
         gEeprom.DUAL_WATCH != DUAL_WATCH_OFF) {
-        if (gScheduleDualWatch && gVoiceWriteIndex == 0) {
+        if (gScheduleDualWatch) {
             if (gScanState == SCAN_OFF && gCssScanMode == CSS_SCAN_MODE_OFF) {
                 if (!gPttIsPressed &&
                     gDTMF_CallState == DTMF_CALL_STATE_NONE &&
@@ -636,7 +631,7 @@ void APP_Update(void) {
     }
 
     if (gBatterySaveCountdownExpired &&
-        gCurrentFunction == FUNCTION_POWER_SAVE && gVoiceWriteIndex == 0) {
+        gCurrentFunction == FUNCTION_POWER_SAVE) {
         if (gRxIdleMode) {
             BK4819_Conditional_RX_TurnOn_and_GPIO6_Enable();
             if (gEeprom.VOX_SWITCH) {
@@ -1023,16 +1018,12 @@ void APP_TimeSlice500ms(void) {
                 gLowBatteryCountdown = 0;
                 if (!gChargingWithTypeC) {
                     AUDIO_PlayBeep(BEEP_500HZ_60MS_DOUBLE_BEEP);
-                    AUDIO_SetVoiceID(0, VOICE_ID_LOW_VOLTAGE);
                     if (gBatteryDisplayLevel == 0) {
-                        AUDIO_PlaySingleVoice(true);
                         gReducedService = true;
                         FUNCTION_Select(FUNCTION_POWER_SAVE);
                         ST7565_Configure_GPIO_B11();
                         GPIO_ClearBit(&GPIOB->DATA, GPIOB_PIN_BACKLIGHT);
-                    } else {
-                        AUDIO_PlaySingleVoice(false);
-                    }
+                    } 
                 }
             }
         }
@@ -1410,8 +1401,6 @@ Skip:
         gFlagRefreshSetting = false;
     }
     if (gFlagStartScan) {
-        AUDIO_SetVoiceID(0, VOICE_ID_SCANNING_BEGIN);
-        AUDIO_PlaySingleVoice(true);
         SCANNER_Start();
         gRequestDisplayScreen = DISPLAY_SCANNER;
         gFlagStartScan = false;
@@ -1419,13 +1408,6 @@ Skip:
     if (gFlagPrepareTX) {
         RADIO_PrepareTX();
         gFlagPrepareTX = false;
-    }
-    if (gAnotherVoiceID != VOICE_ID_INVALID) {
-        if (gAnotherVoiceID < 76) {
-            AUDIO_SetVoiceID(0, gAnotherVoiceID);
-        }
-        AUDIO_PlaySingleVoice(false);
-        gAnotherVoiceID = VOICE_ID_INVALID;
     }
     GUI_SelectNextDisplay(gRequestDisplayScreen);
     gRequestDisplayScreen = DISPLAY_INVALID;

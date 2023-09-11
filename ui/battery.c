@@ -20,10 +20,12 @@
 #include "functions.h"
 #include "ui/battery.h"
 
+
 void UI_DisplayBattery(uint8_t Level)
 {
 	const uint8_t *pBitmap;
 	bool bClearMode = false;
+
 
 	if (gCurrentFunction != 1) {
 		switch (Level) {

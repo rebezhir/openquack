@@ -37,7 +37,7 @@ static const char MenuList[][11] = {
 	"MEM-CH", "Save",    "VOX",    "Backlight",
 	// 0x10
 	"Dual RX",    "Crossband",      "Beep",   "TX limit",
-	"Voice",  "SC-REV",  "Display",    "Autolock",
+    "SC-REV",  "Display",    "Autolock",
 	// 0x18
 	"S-ADD1", "S-ADD2",  "STE",    "RP-STE",
 	"Mic gain",    "Fast call",  "Scanlist", "Scanlist 1",
@@ -48,7 +48,7 @@ static const char MenuList[][11] = {
 	"D-PRE",  "PTT-ID",  "D-DCD",  "D-LIST",
 	 "Roger",   "Battery",    "AM RX",
 	// 0x30
-	"DEL-CH",  "Reset",  "ALL TX", "F-LOCK",
+	"DEL-CH",  "Reset", "Author", "ALL TX", "F-LOCK",
     "200TX",   "500TX",  "350EN", "SCRAMBLER",
 	// 0x38
 };
@@ -99,10 +99,8 @@ static const char gSubMenu_CHAN[3][10] = {
 	"Channel B",
 };
 
-static const char gSubMenu_VOICE[3][4] = {
-	"Off",
-	"Chi",
-	"Eng",
+static const char gSubMenu_ABOUT[9] = {
+	"RebeZhir",
 };
 
 static const char gSubMenu_SC_REV[3][3] = {
@@ -139,9 +137,9 @@ static const char gSubMenu_PTT_ID[4][9] = {
 };
 
 
-static const char gSubMenu_ROGER[3][6] = {
+static const char gSubMenu_ROGER[3][9] = {
 	"Off",
-	"Roger",
+	"Standard",
 	"MDC",
 };
 
@@ -284,7 +282,9 @@ void UI_DisplayMenu(void)
 	case MENU_SCREN:
 		strcpy(String, gSubMenu_OFF_ON[gSubMenuSelection]);
 		break;
-
+    case MENU_ABOUT:
+		strcpy(String, gSubMenu_ABOUT);
+		break; 
 	case MENU_MEM_CH:
 	case MENU_1_CALL:
 	case MENU_DEL_CH:
@@ -310,10 +310,6 @@ void UI_DisplayMenu(void)
 		} else {
 			sprintf(String, "%dmin", gSubMenuSelection);
 		}
-		break;
-
-	case MENU_VOICE:
-		strcpy(String, gSubMenu_VOICE[gSubMenuSelection]);
 		break;
 
 	case MENU_SC_REV:
@@ -400,7 +396,9 @@ void UI_DisplayMenu(void)
 	if (gMenuCursor == MENU_OFFSET) {
 		UI_PrintString("MHz", 0, 127, 4, 10, true);
 	}
-
+	if (gMenuCursor == MENU_ABOUT) {
+		UI_PrintString("V1.0.21", 0, 127, 4, 10, true);
+	}
 	if ((gMenuCursor == MENU_RESET || gMenuCursor == MENU_MEM_CH || gMenuCursor == MENU_DEL_CH) && gAskForConfirmation) {
 		if (gAskForConfirmation == 1) {
 			strcpy(String, "SURE?");

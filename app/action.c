@@ -50,7 +50,6 @@ void ACTION_Power(void) {
     }
 
     gRequestSaveChannel = 1;
-    gAnotherVoiceID = VOICE_ID_POWER;
     gRequestDisplayScreen = gScreenToDisplay;
 }
 
@@ -77,11 +76,8 @@ void ACTION_Scan(bool bRestart) {
         GUI_SelectNextDisplay(DISPLAY_MAIN);
         if (gScanState != SCAN_OFF) {
             SCANNER_Stop();
-            gAnotherVoiceID = VOICE_ID_SCANNING_STOP;
         } else {
             CHANNEL_Next(true, 1);
-            AUDIO_SetVoiceID(0, VOICE_ID_SCANNING_BEGIN);
-            AUDIO_PlaySingleVoice(true);
         }
     }
 }
@@ -90,7 +86,6 @@ void ACTION_Vox(void) {
     gEeprom.VOX_SWITCH = !gEeprom.VOX_SWITCH;
     gRequestSaveSettings = true;
     gFlagReconfigureVfos = true;
-    gAnotherVoiceID = VOICE_ID_VOX;
     gUpdateStatus = true;
 }
 
@@ -124,7 +119,6 @@ void ACTION_Handle(KEY_Code_t Key, bool bKeyPressed, bool bKeyHeld) {
                     return;
                 }
             }
-            gAnotherVoiceID = VOICE_ID_CANCEL;
             gRequestDisplayScreen = DISPLAY_MAIN;
             gDTMF_InputMode = false;
         }
