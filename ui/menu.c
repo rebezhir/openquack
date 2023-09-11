@@ -30,25 +30,25 @@
 
 static const char MenuList[][11] = {
 	// 0x00
-	"SQUELCH",    "FREQ STEP",    "TX POWER",    "RX DCS",
-	"RX CTCSS", "TX DCS",   "TX CTCSS", "SHIFT TO",
+	"Squelch",    "Freq step",    "TX power",    "RX DCS",
+	"RX CTCSS", "TX DCS",   "TX CTCSS", "Shift to",
 	// 0x08
-	"OFFSET", "BANDWIDTH",     "SCRAMBLER",    "BUSY LOCK",
-	"MEM-CH", "SAVE",    "VOX",    "BACKLIGHT",
+	"Offset", "Bandwidth",     "Scrambler",    "Busy lock",
+	"MEM-CH", "Save",    "VOX",    "Backlight",
 	// 0x10
-	"DUAL RX",    "CROSSBAND",      "BEEP",   "TX LIMIT",
-	"VOICE",  "SC-REV",  "DISPLAY",    "AUTOLOCK",
+	"Dual RX",    "Crossband",      "Beep",   "TX limit",
+	"Voice",  "SC-REV",  "Display",    "Autolock",
 	// 0x18
 	"S-ADD1", "S-ADD2",  "STE",    "RP-STE",
-	"MIC GAIN",    "FAST CALL",  "SCANLIST", "SCANLIST 1",
+	"Mic gain",    "Fast call",  "Scanlist", "Scanlist 1",
 	// 0x20
-	"SCANLIST 2", "TONES",  "ANI-ID", "UPCODE",
-	"DOWNCODE", "D-ST",    "D-RSP",  "D-HOLD",
+	"Scanlist 2", "Tones",  "ANI-ID", "Upcode",
+	"Downcode", "D-ST",    "D-RSP",  "D-HOLD",
 	// 0x28
 	"D-PRE",  "PTT-ID",  "D-DCD",  "D-LIST",
-	 "ROGER",   "BATTERY",    "AM",
+	 "Roger",   "Battery",    "AM RX",
 	// 0x30
-	"DEL-CH",  "RESET",  "ALL TX", "F-LOCK",
+	"DEL-CH",  "Reset",  "ALL TX", "F-LOCK",
     "200TX",   "500TX",  "350EN", "SCRAMBLER",
 	// 0x38
 };
@@ -64,29 +64,29 @@ static const uint16_t gSubMenu_Step[] = {
 };
 
 static const char gSubMenu_TXP[3][7] = {
-	"LOW",
-	"MIDDLE",
-	"HIGH",
+	"Low",
+	"Middle",
+	"High",
 };
 
 static const char gSubMenu_SFT_D[3][4] = {
-	"OFF",
+	"Off",
 	"+",
 	"-",
 };
 
 static const char gSubMenu_W_N[2][7] = {
-	"WIDE",
-	"NARROW",
+	"Wide",
+	"Narrow",
 };
 
 static const char gSubMenu_OFF_ON[2][4] = {
-	"OFF",
-	"ON",
+	"Off",
+	"On",
 };
 
 static const char gSubMenu_SAVE[5][4] = {
-	"OFF",
+	"Off",
 	"1:1",
 	"1:2",
 	"1:3",
@@ -94,15 +94,15 @@ static const char gSubMenu_SAVE[5][4] = {
 };
 
 static const char gSubMenu_CHAN[3][10] = {
-	"OFF",
-	"CHANNEL A",
-	"CHANNEL B",
+	"Off",
+	"Channel A",
+	"Channel B",
 };
 
 static const char gSubMenu_VOICE[3][4] = {
-	"OFF",
-	"CHI",
-	"ENG",
+	"Off",
+	"Chi",
+	"Eng",
 };
 
 static const char gSubMenu_SC_REV[3][3] = {
@@ -112,44 +112,44 @@ static const char gSubMenu_SC_REV[3][3] = {
 };
 
 static const char gSubMenu_MDF[3][10] = {
-	"FREQUENCY",
-	"CHANNEL #",
-	"NAME",
+	"Frequency",
+	"Channel #",
+	"Name",
 };
 
 static const char gSubMenu_AL_MOD[2][8] = {
-	"ONLY TX",
-	"PLAY",
+	"Only TX",
+	"Play",
 };
 
 static const char gSubMenu_D_RSP[4][6] = {
-	"NULL",
-	"RING",
-	"REPLY",
-	"BOTH",
+	"Null",
+	"Ring",
+	"Reply",
+	"Both",
 };
 
 static const char gSubMenu_PTT_ID[4][9] = {
-	"OFF",
-	"TX START",
-	"TX END",
-	"BOTH",
+	"Off",
+	"TX start",
+	"TX end",
+	"Both",
 };
 
 
 static const char gSubMenu_ROGER[3][6] = {
-	"OFF",
-	"ROGER",
+	"Off",
+	"Roger",
 	"MDC",
 };
 
 static const char gSubMenu_RESET[2][4] = {
 	"VFO",
-	"ALL",
+	"All",
 };
 
 static const char gSubMenu_F_LOCK[6][4] = {
-	"OFF",
+	"Off",
 	"FCC",
 	"CE",
 	"GB",
@@ -174,12 +174,15 @@ void UI_DisplayMenu(void)
 
 	UI_PrintString(MenuList[gMenuCursor], 0, 127,  0, 10, true);
 	for (i = 4; i < 123; i++) {
-		gFrameBuffer[1][i] ^= 0b10000000; //горизонтальная линия
+		gFrameBuffer[1][i] |= 0b10000000; //горизонтальная линия
 	}
 	NUMBER_ToDigits(gMenuCursor + 1, String);
 	UI_DisplaySmallDigits(2, String + 6, 4, 6);
 	if (gIsInSubMenu) {
 		memcpy(gFrameBuffer[3], BITMAP_CurrentIndicator, sizeof(BITMAP_CurrentIndicator));
+	}
+	else  {
+		memcpy(gFrameBuffer[1], BITMAP_CurrentIndicator, sizeof(BITMAP_CurrentIndicator));		
 	}
 
 	memset(String, 0, sizeof(String));
@@ -201,7 +204,7 @@ void UI_DisplayMenu(void)
 	case MENU_R_DCS:
 	case MENU_T_DCS:
 		if (gSubMenuSelection == 0) {
-			strcpy(String, "OFF");
+			strcpy(String, "Off");
 		} else if (gSubMenuSelection < 105) {
 			sprintf(String, "D%03oN", DCS_Options[gSubMenuSelection - 1]);
 		} else {
@@ -212,7 +215,7 @@ void UI_DisplayMenu(void)
 	case MENU_R_CTCS:
 	case MENU_T_CTCS:
 		if (gSubMenuSelection == 0) {
-			strcpy(String, "OFF");
+			strcpy(String, "Off");
 		} else {
 			sprintf(String, "%.1fHz", CTCSS_Options[gSubMenuSelection - 1] * 0.1);
 		}
@@ -257,7 +260,7 @@ void UI_DisplayMenu(void)
 	case MENU_VOX:
 	case MENU_ABR:
 		if (gSubMenuSelection == 0) {
-			strcpy(String, "OFF");
+			strcpy(String, "Off");
 		} else {
 			sprintf(String, "%d", gSubMenuSelection);
 		}
@@ -301,7 +304,7 @@ void UI_DisplayMenu(void)
 
 	case MENU_TOT:
 		if (gSubMenuSelection == 0) {
-			strcpy(String, "OFF");
+			strcpy(String, "Off");
 		} else {
 			sprintf(String, "%dmin", gSubMenuSelection);
 		}
@@ -321,7 +324,7 @@ void UI_DisplayMenu(void)
 
 	case MENU_RP_STE:
 		if (gSubMenuSelection == 0) {
-			strcpy(String, "OFF");
+			strcpy(String, "Off");
 		} else {
 			sprintf(String, "%d*100ms", gSubMenuSelection);
 		}
