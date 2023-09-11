@@ -30,19 +30,19 @@
 
 static const char MenuList[][11] = {
 	// 0x00
-	"SQUELCH",    "STEP",    "TX POWER",    "RX DCS",
+	"SQUELCH",    "FREQ STEP",    "TX POWER",    "RX DCS",
 	"RX CTCSS", "TX DCS",   "TX CTCSS", "SHIFT TO",
 	// 0x08
 	"OFFSET", "BANDWIDTH",     "SCRAMBLER",    "BUSY LOCK",
 	"MEM-CH", "SAVE",    "VOX",    "BACKLIGHT",
 	// 0x10
-	"DUAL RX",    "CROSSBAND",      "BEEP",   "TOT",
+	"DUAL RX",    "CROSSBAND",      "BEEP",   "TX LIMIT",
 	"VOICE",  "SC-REV",  "DISPLAY",    "AUTOLOCK",
 	// 0x18
 	"S-ADD1", "S-ADD2",  "STE",    "RP-STE",
-	"MIC",    "1-CALL",  "SCANLIST", "SCANLIST1",
+	"MIC GAIN",    "FAST CALL",  "SCANLIST", "SCANLIST 1",
 	// 0x20
-	"SCANLIST2", "AL-MOD",  "ANI-ID", "UPCODE",
+	"SCANLIST 2", "TONES",  "ANI-ID", "UPCODE",
 	"DOWNCODE", "D-ST",    "D-RSP",  "D-HOLD",
 	// 0x28
 	"D-PRE",  "PTT-ID",  "D-DCD",  "D-LIST",
@@ -63,9 +63,9 @@ static const uint16_t gSubMenu_Step[] = {
 	833,
 };
 
-static const char gSubMenu_TXP[3][5] = {
+static const char gSubMenu_TXP[3][7] = {
 	"LOW",
-	"MID",
+	"MIDDLE",
 	"HIGH",
 };
 
@@ -93,10 +93,10 @@ static const char gSubMenu_SAVE[5][4] = {
 	"1:4",
 };
 
-static const char gSubMenu_CHAN[3][7] = {
+static const char gSubMenu_CHAN[3][10] = {
 	"OFF",
-	"CHAN_A",
-	"CHAN_B",
+	"CHANNEL A",
+	"CHANNEL B",
 };
 
 static const char gSubMenu_VOICE[3][4] = {
@@ -111,15 +111,15 @@ static const char gSubMenu_SC_REV[3][3] = {
 	"SE",
 };
 
-static const char gSubMenu_MDF[3][5] = {
-	"FREQ",
-	"CHAN",
+static const char gSubMenu_MDF[3][10] = {
+	"FREQUENCY",
+	"CHANNEL #",
 	"NAME",
 };
 
-static const char gSubMenu_AL_MOD[2][5] = {
-	"SITE",
-	"TONE",
+static const char gSubMenu_AL_MOD[2][8] = {
+	"ONLY TX",
+	"PLAY",
 };
 
 static const char gSubMenu_D_RSP[4][6] = {
@@ -129,10 +129,10 @@ static const char gSubMenu_D_RSP[4][6] = {
 	"BOTH",
 };
 
-static const char gSubMenu_PTT_ID[4][5] = {
+static const char gSubMenu_PTT_ID[4][9] = {
 	"OFF",
-	"BOT",
-	"EOT",
+	"TX START",
+	"TX END",
 	"BOTH",
 };
 
