@@ -146,6 +146,13 @@ int MENU_GetLimits(uint8_t Cursor, uint8_t *pMin, uint8_t *pMax) {
             *pMin = 1;
             *pMax = 16;
             break;
+        case MENU_F1_SHORT:
+		case MENU_F1_LONG:
+		case MENU_F2_SHORT:
+		case MENU_F2_LONG:
+            *pMin = 1;
+            *pMax = 8;
+            break;
         default:
             return -1;
     }
@@ -416,6 +423,19 @@ void MENU_AcceptSetting(void) {
         case MENU_RESET:
             BOARD_FactoryReset(gSubMenuSelection);
             return;
+			
+		case MENU_F1_SHORT:
+		    gEeprom.KEY_1_SHORT_PRESS_ACTION = gSubMenuSelection+1;
+			break;
+		case MENU_F1_LONG:
+		    gEeprom.KEY_1_LONG_PRESS_ACTION = gSubMenuSelection+1;
+			break;
+		case MENU_F2_SHORT:
+		    gEeprom.KEY_2_SHORT_PRESS_ACTION = gSubMenuSelection+1;
+			break;
+		case MENU_F2_LONG:
+		    gEeprom.KEY_2_LONG_PRESS_ACTION = gSubMenuSelection+1;
+			break;
 
         case MENU_ALL_TX:
             gSetting_ALL_TX = gSubMenuSelection;
@@ -717,6 +737,19 @@ void MENU_ShowCurrentSetting(void) {
             gSubMenuSelection =
                 RADIO_FindNextChannel(gEeprom.MrChannel[0], 1, false, 1);
             break;
+			
+		case MENU_F1_SHORT:
+		    gSubMenuSelection = gEeprom.KEY_1_SHORT_PRESS_ACTION - 1;
+			break;
+		case MENU_F1_LONG:
+		    gSubMenuSelection = gEeprom.KEY_1_LONG_PRESS_ACTION - 1;
+			break;
+		case MENU_F2_SHORT:
+		    gSubMenuSelection = gEeprom.KEY_2_SHORT_PRESS_ACTION - 1;
+			break;
+		case MENU_F2_LONG:
+		    gSubMenuSelection = gEeprom.KEY_2_LONG_PRESS_ACTION - 1;
+			break;
 
         case MENU_ALL_TX:
             gSubMenuSelection = gSetting_ALL_TX;

@@ -48,7 +48,8 @@ static const char MenuList[][11] = {
 	"D-PRE",  "PTT-ID",  "D-DCD",  "D-LIST",
 	 "Roger",   "Battery",    "AM RX",
 	// 0x30
-	"DEL-CH",  "Reset", "Author", "ALL TX", "F-LOCK",
+	"DEL-CH", "F1 Short", "F1 Long", "F2 Short", "F2 Long",
+	"Reset", "Author", "ALL TX", "F-LOCK",
     "200TX",   "500TX",  "350EN", "SCRAMBLER",
 	// 0x38
 };
@@ -141,6 +142,17 @@ static const char gSubMenu_ROGER[3][9] = {
 	"Off",
 	"Standard",
 	"MDC",
+};
+
+static const char gSubMenu_FUNCTIONS[8][11] = {
+	"Flashlight",
+	"TX Power",
+	"Monitor",
+	"Scanner",
+	"VOX on/off",
+	"VFO/MR",
+	"A/B",
+	"1750 Hz",
 };
 
 static const char gSubMenu_RESET[2][4] = {
@@ -380,6 +392,13 @@ void UI_DisplayMenu(void)
 
 	case MENU_VOL:
 		sprintf(String, "%.2fV", gBatteryVoltageAverage * 0.01);
+		break;
+		
+	case MENU_F1_SHORT:
+    case MENU_F1_LONG:
+	case MENU_F2_SHORT:
+	case MENU_F2_LONG:
+		strcpy(String, gSubMenu_FUNCTIONS[gSubMenuSelection-1]);
 		break;
 
 	case MENU_RESET:

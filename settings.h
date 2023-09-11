@@ -85,6 +85,19 @@ enum AUTO_1750_Mode_t {
 
 typedef enum AUTO_1750_Mode_t AUTO_1750_Mode_t;
 
+enum SIDEKEYS_t {
+	FLASHLIGHT = 1U,
+	TX_POWER = 2U,
+	MONITOR = 3U,
+	SCANNER = 4U,
+	VOX = 5U,
+	VFOMR = 6U,
+	TOGGLE_AB = 7U, 
+	TX_1750 = 8U,
+};
+
+typedef enum SIDEKEYS_t SIDEKEYS_t;
+
 enum ROGER_Mode_t {
 	ROGER_MODE_OFF   = 0U,
 	ROGER_MODE_ROGER = 1U,
