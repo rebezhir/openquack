@@ -417,7 +417,7 @@ void UI_DisplayMenu(void)
 		UI_PrintString("MHz", 0, 127, 4, 10, true);
 	}
 	if (gMenuCursor == MENU_ABOUT) {
-		UI_PrintString("V1.0.21", 0, 127, 4, 10, true);
+		UI_PrintString("V1.0.22", 0, 127, 4, 10, true);
 	}
 	if ((gMenuCursor == MENU_RESET || gMenuCursor == MENU_MEM_CH || gMenuCursor == MENU_DEL_CH) && gAskForConfirmation) {
 		if (gAskForConfirmation == 1) {
