@@ -150,7 +150,7 @@ int MENU_GetLimits(uint8_t Cursor, uint8_t *pMin, uint8_t *pMax) {
 		case MENU_F1_LONG:
 		case MENU_F2_SHORT:
 		case MENU_F2_LONG:
-            *pMin = 1;
+            *pMin = 0;
             *pMax = 8;
             break;
         default:
@@ -425,16 +425,16 @@ void MENU_AcceptSetting(void) {
             return;
 			
 		case MENU_F1_SHORT:
-		    gEeprom.KEY_1_SHORT_PRESS_ACTION = gSubMenuSelection+1;
+		    gEeprom.KEY_1_SHORT_PRESS_ACTION = gSubMenuSelection;
 			break;
 		case MENU_F1_LONG:
-		    gEeprom.KEY_1_LONG_PRESS_ACTION = gSubMenuSelection+1;
+		    gEeprom.KEY_1_LONG_PRESS_ACTION = gSubMenuSelection;
 			break;
 		case MENU_F2_SHORT:
-		    gEeprom.KEY_2_SHORT_PRESS_ACTION = gSubMenuSelection+1;
+		    gEeprom.KEY_2_SHORT_PRESS_ACTION = gSubMenuSelection;
 			break;
 		case MENU_F2_LONG:
-		    gEeprom.KEY_2_LONG_PRESS_ACTION = gSubMenuSelection+1;
+		    gEeprom.KEY_2_LONG_PRESS_ACTION = gSubMenuSelection;
 			break;
 
         case MENU_ALL_TX:
@@ -739,16 +739,16 @@ void MENU_ShowCurrentSetting(void) {
             break;
 			
 		case MENU_F1_SHORT:
-		    gSubMenuSelection = gEeprom.KEY_1_SHORT_PRESS_ACTION - 1;
+		    gSubMenuSelection = gEeprom.KEY_1_SHORT_PRESS_ACTION;
 			break;
 		case MENU_F1_LONG:
-		    gSubMenuSelection = gEeprom.KEY_1_LONG_PRESS_ACTION - 1;
+		    gSubMenuSelection = gEeprom.KEY_1_LONG_PRESS_ACTION;
 			break;
 		case MENU_F2_SHORT:
-		    gSubMenuSelection = gEeprom.KEY_2_SHORT_PRESS_ACTION - 1;
+		    gSubMenuSelection = gEeprom.KEY_2_SHORT_PRESS_ACTION;
 			break;
 		case MENU_F2_LONG:
-		    gSubMenuSelection = gEeprom.KEY_2_LONG_PRESS_ACTION - 1;
+		    gSubMenuSelection = gEeprom.KEY_2_LONG_PRESS_ACTION;
 			break;
 
         case MENU_ALL_TX:

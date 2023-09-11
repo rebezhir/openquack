@@ -144,7 +144,8 @@ static const char gSubMenu_ROGER[3][9] = {
 	"MDC",
 };
 
-static const char gSubMenu_FUNCTIONS[8][11] = {
+static const char gSubMenu_FUNCTIONS[9][11] = {
+	"None",
 	"Flashlight",
 	"TX Power",
 	"Monitor",
@@ -398,7 +399,7 @@ void UI_DisplayMenu(void)
     case MENU_F1_LONG:
 	case MENU_F2_SHORT:
 	case MENU_F2_LONG:
-		strcpy(String, gSubMenu_FUNCTIONS[gSubMenuSelection-1]);
+		strcpy(String, gSubMenu_FUNCTIONS[gSubMenuSelection]);
 		break;
 
 	case MENU_RESET:

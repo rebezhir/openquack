@@ -86,6 +86,7 @@ enum AUTO_1750_Mode_t {
 typedef enum AUTO_1750_Mode_t AUTO_1750_Mode_t;
 
 enum SIDEKEYS_t {
+	NONE = 0U,
 	FLASHLIGHT = 1U,
 	TX_POWER = 2U,
 	MONITOR = 3U,
