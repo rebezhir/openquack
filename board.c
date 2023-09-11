@@ -481,8 +481,8 @@ void BOARD_EEPROM_Init(void)
 	EEPROM_ReadBuffer(0x0F40, Data, 8);
 	gSetting_F_LOCK         = (Data[0] < 6) ? Data[0] : F_LOCK_OFF;
 
-	gUpperLimitFrequencyBandTable = UpperLimitFrequencyBandTable;
-	gLowerLimitFrequencyBandTable = LowerLimitFrequencyBandTable;
+	//gUpperLimitFrequencyBandTable = UpperLimitFrequencyBandTable;
+	//gLowerLimitFrequencyBandTable = LowerLimitFrequencyBandTable;
 
 	gSetting_ALL_TX          = (Data[1] < 2) ? Data[1] : true;
 	gSetting_200TX          = (Data[3] < 2) ? Data[3] : false;

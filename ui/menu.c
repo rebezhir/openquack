@@ -181,10 +181,10 @@ void UI_DisplayMenu(void)
 	NUMBER_ToDigits(gMenuCursor + 1, String);
 	UI_DisplaySmallDigits(2, String + 6, 4, 6);
 	if (gIsInSubMenu) {
-		memcpy(gFrameBuffer[3], BITMAP_CurrentIndicator, sizeof(BITMAP_CurrentIndicator));
+		memcpy(gFrameBuffer[3], BITMAP_MenuIndicator, sizeof(BITMAP_MenuIndicator));
 	}
 	else  {
-		memcpy(gFrameBuffer[1], BITMAP_CurrentIndicator, sizeof(BITMAP_CurrentIndicator));		
+		memcpy(gFrameBuffer[1], BITMAP_MenuIndicator, sizeof(BITMAP_MenuIndicator));		
 	}
 
 	memset(String, 0, sizeof(String));
