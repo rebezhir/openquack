@@ -235,7 +235,7 @@ static void MAIN_Key_DIGITS(KEY_Code_t Key, bool bKeyPressed, bool bKeyHeld) {
 static void MAIN_Key_EXIT(bool bKeyPressed, bool bKeyHeld) {
     if (!bKeyHeld && bKeyPressed) {
         gBeepToPlay = BEEP_1KHZ_60MS_OPTIONAL;
-        if (true) {
+        
             if (gScanState == SCAN_OFF) {
                 if (gInputBoxIndex == 0) {
                     return;
@@ -251,8 +251,8 @@ static void MAIN_Key_EXIT(bool bKeyPressed, bool bKeyHeld) {
             }
             gRequestDisplayScreen = DISPLAY_MAIN;
             return;
-        }
-        ACTION_FM();
+        
+        
     }
 }
 
