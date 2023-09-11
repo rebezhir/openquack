@@ -647,9 +647,9 @@ void RADIO_PrepareTX(void) {
         gRxVfoIsActive = true;
     }
     RADIO_SelectCurrentVfo();
-    if (gAlarmState == ALARM_STATE_OFF || gAlarmState == ALARM_STATE_TX1750 ||
+    if (gAlarmState == ALARM_STATE_OFF || gAlarmState == ALARM_STATE_TX1750 /*||
         (gAlarmState == ALARM_STATE_ALARM &&
-         gEeprom.ALARM_MODE == ALARM_MODE_TONE)) {
+         gEeprom.ALARM_MODE == ALARM_MODE_TONE)*/) {
         VfoState_t State;
 
         if (!FREQUENCY_Check(gCurrentVfo)) {

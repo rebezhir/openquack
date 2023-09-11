@@ -42,7 +42,7 @@ static const char MenuList[][11] = {
 	"S-ADD1", "S-ADD2",  "STE",    "RP-STE",
 	"Mic gain",    "Fast call",  "Scanlist", "Scanlist 1",
 	// 0x20
-	"Scanlist 2", "Tones",  "ANI-ID", "Upcode",
+	"Scanlist 2", "Auto 1750",  "ANI-ID", "Upcode",
 	"Downcode", "D-ST",    "D-RSP",  "D-HOLD",
 	// 0x28
 	"D-PRE",  "PTT-ID",  "D-DCD",  "D-LIST",
@@ -117,9 +117,11 @@ static const char gSubMenu_MDF[3][10] = {
 	"Name",
 };
 
-static const char gSubMenu_AL_MOD[2][8] = {
-	"Only TX",
-	"Play",
+static const char gSubMenu_Auto_1750[4][10] = {
+	"Off",
+	"1 second",
+	"2 seconds",
+	"3 seconds",
 };
 
 static const char gSubMenu_D_RSP[4][6] = {
@@ -334,8 +336,8 @@ void UI_DisplayMenu(void)
 		sprintf(String, "LIST%d", gSubMenuSelection);
 		break;
 
-	case MENU_AL_MOD:
-		sprintf(String, gSubMenu_AL_MOD[gSubMenuSelection]);
+	case MENU_AUTO_1750:
+		sprintf(String, gSubMenu_Auto_1750[gSubMenuSelection]);
 		break;
 
 	case MENU_ANI_ID:

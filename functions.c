@@ -114,7 +114,7 @@ void FUNCTION_Select(FUNCTION_Type_t Function) {
         case FUNCTION_TRANSMIT:
 
 
-            if (gAlarmState == ALARM_STATE_TXALARM &&
+            /*if (gAlarmState == ALARM_STATE_TXALARM &&
                 gEeprom.ALARM_MODE != ALARM_MODE_TONE) {
                 gAlarmState = ALARM_STATE_ALARM;
                 GUI_DisplayScreen();
@@ -128,7 +128,7 @@ void FUNCTION_Select(FUNCTION_Type_t Function) {
                 BK4819_ExitTxMute();
                 gAlarmToneCounter = 0;
                 break;
-            }
+            }*/
 
             GUI_DisplayScreen();
             RADIO_SetTxParameters();

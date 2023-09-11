@@ -793,7 +793,7 @@ void APP_TimeSlice10ms(void) {
                 gAlarmToneCounter = 0;
             }
             BK4819_SetScrambleFrequencyControlWord(Tone);
-            if (gEeprom.ALARM_MODE == ALARM_MODE_TONE &&
+            /*if (gEeprom.ALARM_MODE == ALARM_MODE_TONE &&
                 gAlarmRunningCounter == 512) {
                 gAlarmRunningCounter = 0;
                 if (gAlarmState == ALARM_STATE_TXALARM) {
@@ -815,7 +815,7 @@ void APP_TimeSlice10ms(void) {
                     gEnableSpeaker = true;
                     gAlarmToneCounter = 0;
                 }
-            }
+            }*/
         }
         if (gRTTECountdown) {
             gRTTECountdown--;
@@ -1092,10 +1092,10 @@ static void ALARM_Off(void) {
     gAlarmState = ALARM_STATE_OFF;
     GPIO_ClearBit(&GPIOC->DATA, GPIOC_PIN_AUDIO_PATH);
     gEnableSpeaker = false;
-    if (gEeprom.ALARM_MODE == ALARM_MODE_TONE) {
+   /* if (gEeprom.ALARM_MODE == ALARM_MODE_TONE) {
         RADIO_SendEndOfTransmission();
         RADIO_EnableCxCSS();
-    }
+    }*/
     gVoxResumeCountdown = 0x50;
     SYSTEM_DelayMs(5);
     RADIO_SetupRegisters(true);

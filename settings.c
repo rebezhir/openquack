@@ -95,7 +95,7 @@ void SETTINGS_SaveSettings(void) {
 
     EEPROM_WriteBuffer(0x0EA0, State);
 
-    State[0] = gEeprom.ALARM_MODE;
+    State[0] = gEeprom.AUTO_1750;
     State[1] = gEeprom.ROGER;
     State[2] = gEeprom.REPEATER_TAIL_TONE_ELIMINATION;
     State[3] = gEeprom.TX_CHANNEL;
