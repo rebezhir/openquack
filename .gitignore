@@ -6,4 +6,4 @@ sram-overlay
 sram-overlay.bin
 
 *.bin
-firmware
+firmware.*
