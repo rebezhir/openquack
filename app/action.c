@@ -29,6 +29,27 @@
 #include "ui/inputbox.h"
 #include "ui/ui.h"
 
+void ACTION_SwitchTDR (uint8_t gDirect_State, bool Cycle)  {
+	uint8_t gState = gDirect_State;
+	if (Cycle) {
+		gState++; //очередной шаг цикла DUAL_WATCH_OFF,DUAL_WATCH_CHAN_A, DUAL_WATCH_CHAN_B 
+		if (gState>DUAL_WATCH_CHAN_B)  {
+			gState = DUAL_WATCH_OFF;
+		}
+	}
+	gEeprom.DUAL_WATCH = gState;
+    gFlagReconfigureVfos = true;
+    gRequestSaveSettings = true;
+    gUpdateStatus = true;
+    if (gState != DUAL_WATCH_OFF) DUALWATCH_Alternate();
+	else  { //выключаем TDR
+	    gRxVfoIsActive = true;
+        gDualWatchCountdown = 360;
+        gScheduleDualWatch = false;
+	}
+	GUI_SelectNextDisplay(DISPLAY_MAIN);
+}
+
 static void ACTION_FlashLight(void) {
     switch (gFlashLightState) {
         case 0:

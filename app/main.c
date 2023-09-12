@@ -22,6 +22,7 @@
 #include "app/app.h"
 #include "app/generic.h"
 #include "app/scanner.h"
+#include "app/menu.h"
 #include "audio.h"
 #include "dtmf.h"
 #include "frequencies.h"
@@ -106,7 +107,7 @@ static void MAIN_Key_DIGITS(KEY_Code_t Key, bool bKeyPressed, bool bKeyHeld) {
     gUpdateStatus = true;
     switch (Key) {
         case KEY_0:
-            //ACTION_FM();
+            ACTION_SwitchTDR (gEeprom.DUAL_WATCH, true);
             break;
 
         case KEY_1:

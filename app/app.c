@@ -412,7 +412,7 @@ Skip:
     }
 }
 
-static void DUALWATCH_Alternate(void) {
+void DUALWATCH_Alternate(void) {
     gEeprom.RX_CHANNEL = gEeprom.RX_CHANNEL == 0;
     gRxVfo = &gEeprom.VfoInfo[gEeprom.RX_CHANNEL];
     RADIO_SetupRegisters(false);

@@ -27,6 +27,7 @@ void ACTION_Vox(void);
 //static void ACTION_AlarmOr1750(bool b1750)
 void ACTION_SwitchAB(void);
 void ACTION_VFOMR(void);
+void ACTION_SwitchTDR(uint8_t Direct_State, bool Cycle);
 void ACTION_Handle(KEY_Code_t Key, bool bKeyPressed, bool bKeyHeld);
 
 #endif

@@ -21,6 +21,8 @@
 #include "app/dtmf.h"
 #include "app/generic.h"
 #include "app/scanner.h"
+#include "app/action.h"
+#include "app/app.h"
 #include "audio.h"
 #include "board.h"
 #include "bsp/dp32g030/gpio.h"
@@ -34,6 +36,7 @@
 #include "ui/inputbox.h"
 #include "ui/menu.h"
 #include "ui/ui.h"
+
 
 static void Scan(int8_t Direction) {
     gCssScanMode = CSS_SCAN_MODE_SCANNING;
@@ -292,10 +295,7 @@ void MENU_AcceptSetting(void) {
             break;
 
         case MENU_TDR:
-            gEeprom.DUAL_WATCH = gSubMenuSelection;
-            gFlagReconfigureVfos = true;
-            gRequestSaveSettings = true;
-            gUpdateStatus = true;
+            ACTION_SwitchTDR(gSubMenuSelection, false);
             return;
 
         case MENU_WX:
