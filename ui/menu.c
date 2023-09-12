@@ -38,18 +38,18 @@ static const char MenuList[][11] = {
 	"MEM-CH", "Save",    "VOX",    "Backlight",
 	// 0x10
 	"Dual RX",    "Crossband",      "Beep",   "TX limit",
-    "SC-REV",  "Display",    "Autolock",
+    "SC-REV",  "Display",    "Autolock",   "Lock type",
 	// 0x18
 	"S-ADD1", "S-ADD2",  "STE",    "RP-STE",
 	"Mic gain",    "Fast call",  "Scanlist", "Scanlist 1",
 	// 0x20
-	"Scanlist 2", "Auto 1750",  "ANI-ID", "Upcode",
+	"Scanlist 2",  "ANI-ID", "Upcode",
 	"Downcode", "D-ST",    "D-RSP",  "D-HOLD",
 	// 0x28
 	"D-PRE",  "PTT-ID",  "D-DCD",  "D-LIST",
 	 "Roger",   "Battery",    "AM RX",
 	// 0x30
-	"DEL-CH", "F1 Short", "F1 Long", "F2 Short", "F2 Long",
+	"DEL-CH", "F1 short", "F1 long", "F2 short", "F2 long",
 	"Reset", "Author", "ALL TX", "F-LOCK",
     "200TX",   "500TX",  "350EN", "SCRAMBLER",
 	// 0x38
@@ -117,11 +117,10 @@ static const char gSubMenu_MDF[3][10] = {
 	"Name",
 };
 
-static const char gSubMenu_Auto_1750[4][10] = {
-	"Off",
-	"1 second",
-	"2 seconds",
-	"3 seconds",
+static const char gSubMenu_LOCK_TYPE[3][11] = {
+	"Only front",
+	"With F1/F2",
+	"All keys",
 };
 
 static const char gSubMenu_D_RSP[4][6] = {
@@ -346,8 +345,8 @@ void UI_DisplayMenu(void)
 		sprintf(String, "LIST%d", gSubMenuSelection);
 		break;
 
-	case MENU_AUTO_1750:
-		sprintf(String, gSubMenu_Auto_1750[gSubMenuSelection]);
+	case MENU_LOCK_TYPE:
+		sprintf(String, gSubMenu_LOCK_TYPE[gSubMenuSelection]);
 		break;
 
 	case MENU_ANI_ID:

@@ -7,3 +7,4 @@ sram-overlay.bin
 make.sh
 *.bin
 firmware.*
+firmware

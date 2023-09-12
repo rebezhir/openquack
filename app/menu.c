@@ -72,6 +72,7 @@ int MENU_GetLimits(uint8_t Cursor, uint8_t *pMin, uint8_t *pMax) {
         case MENU_SC_REV:
         case MENU_MDF:
         case MENU_ROGER:
+		case MENU_LOCK_TYPE:
             *pMin = 0;
             *pMax = 2;
             break;
@@ -130,7 +131,6 @@ int MENU_GetLimits(uint8_t Cursor, uint8_t *pMin, uint8_t *pMax) {
             break;
         case MENU_D_RSP:
         case MENU_PTT_ID:
-		case MENU_AUTO_1750:
             *pMin = 0;
             *pMax = 3;
             break;
@@ -363,8 +363,8 @@ void MENU_AcceptSetting(void) {
             gEeprom.SCAN_LIST_DEFAULT = gSubMenuSelection - 1;
             break;
 
-        case MENU_AUTO_1750:
-            gEeprom.AUTO_1750 = gSubMenuSelection;
+        case MENU_LOCK_TYPE:
+            gEeprom.LOCK_TYPE = gSubMenuSelection;
             break;
 
         case MENU_D_ST:
@@ -693,8 +693,8 @@ void MENU_ShowCurrentSetting(void) {
             gSubMenuSelection = RADIO_FindNextChannel(0, 1, true, 1);
             break;
 
-        case MENU_AUTO_1750:
-            gSubMenuSelection = gEeprom.AUTO_1750;
+        case MENU_LOCK_TYPE:
+            gSubMenuSelection = gEeprom.LOCK_TYPE;
             break;
 
         case MENU_D_ST:

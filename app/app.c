@@ -1158,9 +1158,10 @@ static void APP_ProcessKey(KEY_Code_t Key, bool bKeyPressed, bool bKeyHeld) {
         }
     }
 
-    if (gEeprom.KEY_LOCK && gCurrentFunction != FUNCTION_TRANSMIT &&
-        Key != KEY_PTT) {
-        if (Key == KEY_F) {
+
+//новый вариант обработчика вызывается независимо от статуса PTT
+    if (gEeprom.KEY_LOCK && gCurrentFunction != FUNCTION_TRANSMIT)  {
+		if (Key == KEY_F) {
             if (!bKeyHeld) {
                 if (!bKeyPressed) {
                     return;
@@ -1176,20 +1177,54 @@ static void APP_ProcessKey(KEY_Code_t Key, bool bKeyPressed, bool bKeyHeld) {
             if (!bKeyPressed) {
                 return;
             }
-        } else if (Key != KEY_SIDE1 && Key != KEY_SIDE2) {
-            if (!bKeyPressed) {
-                return;
-            }
-            if (bKeyHeld) {
-                return;
-            }
-            AUDIO_PlayBeep(BEEP_500HZ_60MS_DOUBLE_BEEP_OPTIONAL);
-            gKeypadLocked = 4;
-            gUpdateDisplay = true;
-            return;
         }
-    }
+		else {
+		switch (gEeprom.LOCK_TYPE)  {
+			case LOCK_STANDARD:
+			    if (Key != KEY_PTT &&Key != KEY_SIDE1 && Key != KEY_SIDE2) {
+                if (!bKeyPressed) {
+                    return;
+                }
+                if (bKeyHeld) {
+                    return;
+                }			
+	        	AUDIO_PlayBeep(BEEP_500HZ_60MS_DOUBLE_BEEP_OPTIONAL);
+                gKeypadLocked = 4;
+                gUpdateDisplay = true;
+                return;
+				}
+			break;
+			case LOCK_WITH_F_KEYS:
+				if (Key != KEY_PTT) {
+                if (!bKeyPressed) {
+                    return;
+                }
+                if (bKeyHeld) {
+                    return;
+                }			
+	        	AUDIO_PlayBeep(BEEP_500HZ_60MS_DOUBLE_BEEP_OPTIONAL);
+                gKeypadLocked = 4;
+                gUpdateDisplay = true;
+                return;
+				}
+			break;
+			case LOCK_ALL:
+			    if (!bKeyPressed) {
+                    return;
+                }
+                if (bKeyHeld) {
+                    return;
+                }				
+		        AUDIO_PlayBeep(BEEP_500HZ_60MS_DOUBLE_BEEP_OPTIONAL);
+                gKeypadLocked = 4;
+                gUpdateDisplay = true;
+                return;
+			break;
+		}
 
+		}
+		
+	}
     if ((gScanState != SCAN_OFF && Key != KEY_PTT && Key != KEY_UP &&
          Key != KEY_DOWN && Key != KEY_EXIT && Key != KEY_STAR) ||
         (gCssScanMode != CSS_SCAN_MODE_OFF && Key != KEY_PTT && Key != KEY_UP &&
