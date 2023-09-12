@@ -134,44 +134,11 @@ static void MAIN_Key_DIGITS(KEY_Code_t Key, bool bKeyPressed, bool bKeyHeld) {
             break;
 
         case KEY_2:
-            if (gEeprom.CROSS_BAND_RX_TX == CROSS_BAND_CHAN_A) {
-                gEeprom.CROSS_BAND_RX_TX = CROSS_BAND_CHAN_B;
-            } else if (gEeprom.CROSS_BAND_RX_TX == CROSS_BAND_CHAN_B) {
-                gEeprom.CROSS_BAND_RX_TX = CROSS_BAND_CHAN_A;
-            } else if (gEeprom.DUAL_WATCH == DUAL_WATCH_CHAN_A) {
-                gEeprom.DUAL_WATCH = DUAL_WATCH_CHAN_B;
-            } else if (gEeprom.DUAL_WATCH == DUAL_WATCH_CHAN_B) {
-                gEeprom.DUAL_WATCH = DUAL_WATCH_CHAN_A;
-            } else {
-                gEeprom.TX_CHANNEL = (Vfo == 0);
-            }
-            gRequestSaveSettings = 1;
-            gFlagReconfigureVfos = true;
-            gRequestDisplayScreen = DISPLAY_MAIN;
-            gBeepToPlay = BEEP_1KHZ_60MS_OPTIONAL;
+		    ACTION_SwitchAB();           
             break;
 
         case KEY_3:
-            if (gEeprom.VFO_OPEN) {
-                uint8_t Channel;
-
-                if (IS_MR_CHANNEL(gTxVfo->CHANNEL_SAVE)) {
-                    gEeprom.ScreenChannel[Vfo] =
-                        gEeprom.FreqChannel[gEeprom.TX_CHANNEL];
-                    gRequestSaveVFO = true;
-                    gVfoConfigureMode = VFO_CONFIGURE_RELOAD;
-                    break;
-                }
-                Channel = RADIO_FindNextChannel(
-                    gEeprom.MrChannel[gEeprom.TX_CHANNEL], 1, false, 0);
-                if (Channel != 0xFF) {
-                    gEeprom.ScreenChannel[Vfo] = Channel;
-                    gRequestSaveVFO = true;
-                    gVfoConfigureMode = VFO_CONFIGURE_RELOAD;
-                    break;
-                }
-            }
-            gBeepToPlay = BEEP_500HZ_60MS_DOUBLE_BEEP_OPTIONAL;
+            ACTION_VFOMR();
             break;
 
         case KEY_4:
@@ -361,8 +328,6 @@ void MAIN_ProcessKeys(KEY_Code_t Key, bool bKeyPressed, bool bKeyHeld) {
             return;
         }
     }
-
-    // TODO: ???
     if (KEY_PTT < Key) {
         Key = KEY_SIDE2;
     }

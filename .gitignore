@@ -4,6 +4,6 @@
 link-overlay.S
 sram-overlay
 sram-overlay.bin
-
+make.sh
 *.bin
 firmware.*

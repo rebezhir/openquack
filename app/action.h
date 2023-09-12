@@ -25,8 +25,8 @@ void ACTION_Power(void);
 void ACTION_Scan(bool bFlag);
 void ACTION_Vox(void);
 //static void ACTION_AlarmOr1750(bool b1750)
-void ACTION_FM(void);
-
+void ACTION_SwitchAB(void);
+void ACTION_VFOMR(void);
 void ACTION_Handle(KEY_Code_t Key, bool bKeyPressed, bool bKeyHeld);
 
 #endif

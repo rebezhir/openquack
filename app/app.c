@@ -957,14 +957,14 @@ void APP_TimeSlice500ms(void) {
             gCurrentRSSI = BK4819_GetRSSI();
             UI_UpdateRSSI(gCurrentRSSI);
         }
-        if (/*(gFM_ScanState == FM_SCAN_OFF || gAskToSave) &&*/
-            gScanState == SCAN_OFF && gCssScanMode == CSS_SCAN_MODE_OFF) {
+        //if (/*(gFM_ScanState == FM_SCAN_OFF || gAskToSave) &&*/
+        //    gScanState == SCAN_OFF && gCssScanMode == CSS_SCAN_MODE_OFF) {
             if (gBacklightCountdown) {
                 gBacklightCountdown--;
                 if (gBacklightCountdown == 0) {
                     GPIO_ClearBit(&GPIOB->DATA, GPIOB_PIN_BACKLIGHT);
                 }
-            }
+          //  }
             if ((gScreenToDisplay != DISPLAY_SCANNER ||
                  (gScanCssState >= SCAN_CSS_STATE_FOUND))) {
                 if (gEeprom.AUTO_KEYPAD_LOCK && gKeyLockCountdown &&
@@ -1300,9 +1300,6 @@ static void APP_ProcessKey(KEY_Code_t Key, bool bKeyPressed, bool bKeyHeld) {
             switch (gScreenToDisplay) {
                 case DISPLAY_MAIN:
                     MAIN_ProcessKeys(Key, bKeyPressed, bKeyHeld);
-                    break;
-                case DISPLAY_FM:
-                   // FM_ProcessKeys(Key, bKeyPressed, bKeyHeld);
                     break;
                 case DISPLAY_MENU:
                     MENU_ProcessKeys(Key, bKeyPressed, bKeyHeld);

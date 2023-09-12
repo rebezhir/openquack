@@ -97,10 +97,49 @@ static void ACTION_1750(void) {
     gRequestDisplayScreen = DISPLAY_MAIN;
 }
 
-static void ACTION_SwitchAB(void) {
+void ACTION_SwitchAB(void) {
+	uint8_t Vfo;
+    Vfo = gEeprom.TX_CHANNEL;
+	if (gEeprom.CROSS_BAND_RX_TX == CROSS_BAND_CHAN_A) {
+        gEeprom.CROSS_BAND_RX_TX = CROSS_BAND_CHAN_B;
+    } else if (gEeprom.CROSS_BAND_RX_TX == CROSS_BAND_CHAN_B) {
+                gEeprom.CROSS_BAND_RX_TX = CROSS_BAND_CHAN_A;
+            } else if (gEeprom.DUAL_WATCH == DUAL_WATCH_CHAN_A) {
+                gEeprom.DUAL_WATCH = DUAL_WATCH_CHAN_B;
+            } else if (gEeprom.DUAL_WATCH == DUAL_WATCH_CHAN_B) {
+                gEeprom.DUAL_WATCH = DUAL_WATCH_CHAN_A;
+            } else {
+                gEeprom.TX_CHANNEL = (Vfo == 0);
+            }
+    gRequestSaveSettings = 1;
+    gFlagReconfigureVfos = true;
+    gRequestDisplayScreen = DISPLAY_MAIN;
+    gBeepToPlay = BEEP_1KHZ_60MS_OPTIONAL;
 }
 
-static void ACTION_VFOMR(void) {
+void ACTION_VFOMR(void) {
+	uint8_t Vfo;
+    Vfo = gEeprom.TX_CHANNEL;
+    if (gEeprom.VFO_OPEN) {
+    uint8_t Channel;
+
+    if (IS_MR_CHANNEL(gTxVfo->CHANNEL_SAVE)) {
+        gEeprom.ScreenChannel[Vfo] =
+            gEeprom.FreqChannel[gEeprom.TX_CHANNEL];
+        gRequestSaveVFO = true;
+        gVfoConfigureMode = VFO_CONFIGURE_RELOAD;
+        return;
+        }
+    Channel = RADIO_FindNextChannel(
+                    gEeprom.MrChannel[gEeprom.TX_CHANNEL], 1, false, 0);
+    if (Channel != 0xFF) {
+        gEeprom.ScreenChannel[Vfo] = Channel;
+        gRequestSaveVFO = true;
+        gVfoConfigureMode = VFO_CONFIGURE_RELOAD;
+        return;
+        }
+    }
+    gBeepToPlay = BEEP_500HZ_60MS_DOUBLE_BEEP_OPTIONAL;
 }
 
 void ACTION_Handle(KEY_Code_t Key, bool bKeyPressed, bool bKeyHeld) {
