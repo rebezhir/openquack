@@ -1,6 +1,8 @@
 # OpenQUACK: проект ПО для портативных радиостанций Quansheng UV-K5/UV-K5(8)/UV-5R PLUS/UV-K6
 А также Anysecu UV-K5, Radtel RT-590 и так далее  
 
+https://t.me/openquack  
+
 ![OpenQUACK](images/openquack.png)
 
 Основан на коде https://github.com/DualTachyon и https://github.com/fagci  
