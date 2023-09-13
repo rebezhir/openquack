@@ -249,7 +249,7 @@ void UI_DisplayMain(void)
               memcpy(pLine0 + 120, BITMAP_ScanList, sizeof(BITMAP_ScanList));
             }
           }
-          sprintf(String, "%4.5f", fDisplay * 1e-5);
+          sprintf(String, "%d.%05d", fDisplay / 100000, fDisplay % 100000);
           UI_PrintString(String, 8, 127, Line, 8, 1);
         } else {
           switch (gEeprom.CHANNEL_DISPLAY_MODE) {

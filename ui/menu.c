@@ -207,7 +207,7 @@ void UI_DisplayMenu(void)
 		break;
 
 	case MENU_STEP:
-		sprintf(String, "%.2fKHz", gSubMenu_Step[gSubMenuSelection] * 0.01);
+		sprintf(String, "%d.%02dKHz", gSubMenu_Step[gSubMenuSelection] / 100, gSubMenu_Step[gSubMenuSelection] % 100);
 		break;
 
 	case MENU_TXP:
@@ -230,7 +230,7 @@ void UI_DisplayMenu(void)
 		if (gSubMenuSelection == 0) {
 			strcpy(String, "Off");
 		} else {
-			sprintf(String, "%.1fHz", CTCSS_Options[gSubMenuSelection - 1] * 0.1);
+			sprintf(String, "%d.%dHz", CTCSS_Options[gSubMenuSelection - 1] / 10, CTCSS_Options[gSubMenuSelection - 1] % 10);
 		}
 		break;
 
@@ -240,7 +240,7 @@ void UI_DisplayMenu(void)
 
 	case MENU_OFFSET:
 		if (!gIsInSubMenu || gInputBoxIndex == 0) {
-			sprintf(String, "%.5f", gSubMenuSelection * 1e-05);
+			sprintf(String, "%d.%05d", gSubMenuSelection / 100000, gSubMenuSelection % 100000);
 			break;
 		}
 		for (i = 0; i < 3; i++) {
@@ -392,7 +392,7 @@ void UI_DisplayMenu(void)
 		break;
 
 	case MENU_VOL:
-		sprintf(String, "%.2fV", gBatteryVoltageAverage * 0.01);
+		sprintf(String, "%d.%02dV", gBatteryVoltageAverage / 100, gBatteryVoltageAverage % 100);
 		break;
 		
 	case MENU_F1_SHORT:
