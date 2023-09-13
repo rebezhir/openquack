@@ -17,7 +17,8 @@
 #ifndef UI_STATUS_H
 #define UI_STATUS_H
 
-void UI_DisplayStatusbarDigits(uint8_t Size, const char *pString, uint8_t x);
+extern char StatusbarString[10];
+
 void UI_DisplayStatus(void);
 
 #endif

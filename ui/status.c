@@ -27,18 +27,22 @@
 #include "ui/helper.h"
 #include "font.h"
 
-void UI_DisplayStatusbarDigits(uint8_t Size, const char *pString, uint8_t x)
-{
-	uint8_t i;
+char StatusbarString[10];
 
-	for (i = 0; i < Size; i++) {
-		memcpy(gStatusLine + (i * 7) + x, gFontSmallDigits[(uint8_t)pString[i]], 7);
+void UI_DisplayStatusbarString(uint8_t x)
+{
+	uint8_t i = 0;
+
+	while (StatusbarString[i] && i<10) {
+		memcpy(gStatusLine + (i * 7) + x, gFontSmallDigits[(uint8_t)StatusbarString[i]], 7);
+		i++;
 	}
 }
 
+
 void UI_DisplayStatus(void)
 {
-	char String[5];
+	
 	memset(gStatusLine, 0, sizeof(gStatusLine));
 	if (gCurrentFunction == FUNCTION_POWER_SAVE) {
 		memcpy(gStatusLine, BITMAP_PowerSave, sizeof(BITMAP_PowerSave));
@@ -76,8 +80,7 @@ void UI_DisplayStatus(void)
 	if (gEeprom.DUAL_WATCH != DUAL_WATCH_OFF) {
 		memcpy(gStatusLine + 45, BITMAP_TDR, sizeof(BITMAP_TDR));
 	}
-	memset (String, 0x06, sizeof(String));
-    UI_DisplayStatusbarDigits(5, String, 20);
+    UI_DisplayStatusbarString(10);
 	ST7565_BlitStatusLine();
 
 }
