@@ -11,3 +11,4 @@ firmware
 .vs/slnx.sqlite
 .vscode/*.*
 openquack.code-workspace
+build.bat

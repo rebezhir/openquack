@@ -68,6 +68,7 @@ OBJS += main.o
 
 ifeq ($(OS),Windows_NT)
 TOP := $(dir $(realpath $(lastword $(MAKEFILE_LIST))))
+SHELL=cmd
 else
 TOP := $(shell pwd)
 endif
@@ -107,11 +108,6 @@ all: $(TARGET)
 	-python3 fw-pack.py $<.bin $(GIT_HASH) $<.packed.bin
 	$(SIZE) $<
 
-debug:
-	/opt/openocd/bin/openocd -c "bindto 0.0.0.0" -f interface/jlink.cfg -f dp32g030.cfg
-
-flash:
-	/opt/openocd/bin/openocd -c "bindto 0.0.0.0" -f interface/jlink.cfg -f dp32g030.cfg -c "write_image firmware.bin 0; shutdown;"
 
 version.o: .FORCE
 
@@ -131,5 +127,5 @@ bsp/dp32g030/%.h: hardware/dp32g030/%.def
 -include $(DEPS)
 
 clean:
-	rm -f $(TARGET).bin $(TARGET) $(OBJS) $(DEPS)
+	del /Q /F *.o *.d firmware firmware.bin 
 
