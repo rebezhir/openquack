@@ -25,16 +25,24 @@
 #include "settings.h"
 #include "ui/status.h"
 #include "ui/helper.h"
-#include "font.h"
+#include "win1251/font8x7_ASCIIpart.h"
+#include "win1251/font8x7_cyrillic.h"
 
-char StatusbarString[10];
+char StatusbarString[10] = "–”—— »…";
 
 void UI_DisplayStatusbarString(uint8_t x)
 {
 	uint8_t i = 0;
 
 	while (StatusbarString[i] && i<10) {
-		memcpy(gStatusLine + (i * 7) + x, gFontSmallDigits[(uint8_t)StatusbarString[i]], 7);
+		if (is_ASCIIpart(StatusbarString[i]))
+		{
+			memcpy(gStatusLine + (i * 7) + x, gFont8x7_ASCIIpart[(uint8_t)StatusbarString[i]-0x20], 7);
+		}
+		else if (is_cyrillic(StatusbarString[i]))
+		{
+			memcpy(gStatusLine + (i * 7) + x, gFont8x7_cyrillic[(uint8_t)StatusbarString[i]-0xC0], 7);
+		}
 		i++;
 	}
 }

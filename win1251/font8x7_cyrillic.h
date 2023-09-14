@@ -18,7 +18,10 @@
 #define FONT8X7_CYRILLIC_H
 
 #include <stdint.h>
+#include <stdbool.h>
 
-extern const uint8_t gFont8x7_cyrillic[64][7];
+bool is_cyrillic (char c);
+
+extern const uint8_t gFont8x7_cyrillic[32][7];
 
 #endif
