@@ -81,6 +81,7 @@ void BATTERY_GetReadings(bool bDisplayBatteryLevel)
 	}
 
 	if (PreviousBatteryLevel != gBatteryDisplayLevel) {
+
 		if (gBatteryDisplayLevel < 2) {
 			gLowBattery = true;
 		} else {

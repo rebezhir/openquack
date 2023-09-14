@@ -891,6 +891,7 @@ static void MENU_Key_EXIT(bool bKeyPressed, bool bKeyHeld) {
                     gIsInSubMenu = false;
                     gInputBoxIndex = 0;
                     gFlagRefreshSetting = true;
+                    gAskForConfirmation = 0;
                 } else {
                     gInputBoxIndex--;
                     gInputBox[gInputBoxIndex] = 10;

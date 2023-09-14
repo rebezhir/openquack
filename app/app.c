@@ -1077,6 +1077,7 @@ void APP_TimeSlice500ms(void) {
             memset(gDTMF_Received, 0, sizeof(gDTMF_Received));
         }
     }
+    gUpdateStatus = true;
 }
 
 static void ALARM_Off(void) {

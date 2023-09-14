@@ -17,7 +17,7 @@
 #ifndef VERSION_H
 #define VERSION_H
 
-extern const char Version[];
+extern const char Version[10];
 
 #endif
 

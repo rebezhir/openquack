@@ -33,9 +33,9 @@
 #include "radio.h"
 #include "settings.h"
 #include "ui/lock.h"
+#include "version.h"
 
 
-static const char Version[] = "OpenQUACK\r\n";
 
 void _putchar(char c)
 {
