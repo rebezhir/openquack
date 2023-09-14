@@ -61,6 +61,8 @@ OBJS += ui/scanner.o
 OBJS += ui/status.o
 OBJS += ui/ui.o
 OBJS += version.o
+OBJS += win1251/font8x7_ASCIIpart.o
+OBJS += win1251/font8x7_cyrillic.o
 
 OBJS += main.o
 
