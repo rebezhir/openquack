@@ -8,3 +8,6 @@ make.sh
 *.bin
 firmware.*
 firmware
+.vs/slnx.sqlite
+.vscode/*.*
+openquack.code-workspace

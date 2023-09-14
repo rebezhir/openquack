@@ -21,6 +21,7 @@
 #include "driver/st7565.h"
 #include "functions.h"
 #include "helper/battery.h"
+#include "external/printf/printf.h"
 #include "misc.h"
 #include "settings.h"
 #include "ui/status.h"
@@ -28,7 +29,7 @@
 #include "win1251/font8x7_ASCIIpart.h"
 #include "win1251/font8x7_cyrillic.h"
 
-char StatusbarString[10] = "–”—— »…";
+char StatusbarString[10];
 
 void UI_DisplayStatusbarString(uint8_t x)
 {
@@ -55,7 +56,7 @@ void UI_DisplayStatus(void)
 	if (gCurrentFunction == FUNCTION_POWER_SAVE) {
 		memcpy(gStatusLine, BITMAP_PowerSave, sizeof(BITMAP_PowerSave));
 	}
-	if (gBatteryDisplayLevel < 2) {
+	/*if (gBatteryDisplayLevel < 2) {
 		if (gLowBatteryBlink == 1) {
 			memcpy(gStatusLine + 110, BITMAP_BatteryLevel1, sizeof(BITMAP_BatteryLevel1));
 		}
@@ -69,7 +70,7 @@ void UI_DisplayStatus(void)
 		} else {
 			memcpy(gStatusLine + 110, BITMAP_BatteryLevel5, sizeof(BITMAP_BatteryLevel5));
 		}
-	}
+	}*/
 	if (gChargingWithTypeC) {
 		memcpy(gStatusLine + 100, BITMAP_USB_C, sizeof(BITMAP_USB_C));
 	}
@@ -88,7 +89,8 @@ void UI_DisplayStatus(void)
 	if (gEeprom.DUAL_WATCH != DUAL_WATCH_OFF) {
 		memcpy(gStatusLine + 45, BITMAP_TDR, sizeof(BITMAP_TDR));
 	}
-    UI_DisplayStatusbarString(10);
+	sprintf(StatusbarString, "%d.%02d¬", gBatteryVoltageAverage / 100, gBatteryVoltageAverage % 100);
+    UI_DisplayStatusbarString(92);
 	ST7565_BlitStatusLine();
 
 }
