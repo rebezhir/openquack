@@ -44,7 +44,7 @@ static const char MenuList[][11] = {
 	"Mic gain",    "Fast call",  "Scanlist", "Scanlist 1",
 	// 0x20
 	"Scanlist 2",  "ANI-ID", "Upcode",
-	"Downcode", "Standby",    "Response",  "DTMF hold",
+	"Downcode", "DTMF Sound",    "Response",  "DTMF hold",
 	// 0x28
 	"DTMF time",  "PTT-ID",  "Decoder",  "Contacts",
 	 "Roger",   "Battery",    "AM RX",

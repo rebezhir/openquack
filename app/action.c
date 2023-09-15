@@ -32,7 +32,7 @@
 void ACTION_SwitchTDR (uint8_t gDirect_State, bool Cycle)  {
 	uint8_t gState = gDirect_State;
 	if (Cycle) {
-		gState++; //РѕС‡РµСЂРµРґРЅРѕР№ С€Р°Рі С†РёРєР»Р° DUAL_WATCH_OFF,DUAL_WATCH_CHAN_A, DUAL_WATCH_CHAN_B 
+		gState++; //очередной шаг цикла DUAL_WATCH_OFF,DUAL_WATCH_CHAN_A, DUAL_WATCH_CHAN_B 
 		if (gState>DUAL_WATCH_CHAN_B)  {
 			gState = DUAL_WATCH_OFF;
 		}
@@ -42,7 +42,7 @@ void ACTION_SwitchTDR (uint8_t gDirect_State, bool Cycle)  {
     gRequestSaveSettings = true;
     gUpdateStatus = true;
     if (gState != DUAL_WATCH_OFF) DUALWATCH_Alternate();
-	else  { //РІС‹РєР»СЋС‡Р°РµРј TDR
+	else  { //выключаем TDR
 	    gRxVfoIsActive = true;
         gDualWatchCountdown = 360;
         gScheduleDualWatch = false;
