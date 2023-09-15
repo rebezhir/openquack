@@ -1,8 +1,7 @@
 # OpenQUACK: проект ПО для портативных радиостанций Quansheng UV-K5/UV-K5(8)/UV-5R PLUS/UV-K6
 А также Anysecu UV-K5, Radtel RT-590 и так далее  
 
-[ОТПРАВИТЬ БЛАГОДАРОЧКУ НА ПИВО](https://yoomoney.ru/quickpay/fundraise/button?billNumber=wqZfBADMwzo.230915&)
-
+__ОТПРАВИТЬ БЛАГОДАРОЧКУ НА ПИВО: 2204 1201 0314 6060__  
 [Канал в Telegram](https://t.me/openquack)  
 
 ![OpenQUACK](images/openquack.png)
