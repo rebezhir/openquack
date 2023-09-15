@@ -56,7 +56,7 @@ void BOOT_ProcessMode(BOOT_Mode_t Mode)
 		gMenuCursor = MENU_ALL_TX;
 		gSubMenuSelection = gSetting_ALL_TX;
 		GUI_SelectNextDisplay(DISPLAY_MENU);
-		gMenuListCount = 59;
+		gMenuListCount = 60;
 		gF_LOCK = true;
 	} else {
 		GUI_SelectNextDisplay(DISPLAY_MAIN);

@@ -105,7 +105,7 @@ DEPS = $(OBJS:.o=.d)
 all: $(TARGET)
 	$(OBJCOPY) -O binary $< $<.bin
 	-python fw-pack.py $<.bin $(GIT_HASH) $<.packed.bin
-	-python3 fw-pack.py $<.bin $(GIT_HASH) $<.packed.bin
+#	-python3 fw-pack.py $<.bin $(GIT_HASH) $<.packed.bin
 	$(SIZE) $<
 
 
@@ -127,5 +127,6 @@ bsp/dp32g030/%.h: hardware/dp32g030/%.def
 -include $(DEPS)
 
 clean:
-	del /Q /F *.o *.d firmware firmware.bin 
+
+	del /Q /F /S *.o *.d firmware firmware.bin > nul
 

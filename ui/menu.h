@@ -80,6 +80,7 @@ enum {
 	MENU_500TX		= 56,
 	MENU_350EN		= 57,
 	MENU_SCREN		= 58,
+	MENU_CALIBRATION = 59,
 };
 
 extern bool gIsInSubMenu;

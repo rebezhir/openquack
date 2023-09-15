@@ -72,24 +72,24 @@ void UI_DisplayStatus(void)
 		}
 	}*/
 	if (gChargingWithTypeC) {
-		memcpy(gStatusLine + 100, BITMAP_USB_C, sizeof(BITMAP_USB_C));
+		memcpy(gStatusLine + 80, BITMAP_USB_C, sizeof(BITMAP_USB_C));
 	}
 	if (gEeprom.KEY_LOCK) {
-		memcpy(gStatusLine + 90, BITMAP_KeyLock, sizeof(BITMAP_KeyLock));
+		memcpy(gStatusLine + 70, BITMAP_KeyLock, sizeof(BITMAP_KeyLock));
 	} else if (gWasFKeyPressed) {
-		memcpy(gStatusLine + 90, BITMAP_F_Key, sizeof(BITMAP_F_Key));
+		memcpy(gStatusLine + 70, BITMAP_F_Key, sizeof(BITMAP_F_Key));
 	}
 
 	if (gEeprom.VOX_SWITCH) {
-		memcpy(gStatusLine + 71, BITMAP_VOX, sizeof(BITMAP_VOX));
+		memcpy(gStatusLine + 51, BITMAP_VOX, sizeof(BITMAP_VOX));
 	}
 	if (gEeprom.CROSS_BAND_RX_TX != CROSS_BAND_OFF) {
-		memcpy(gStatusLine + 58, BITMAP_WX, sizeof(BITMAP_WX));
+		memcpy(gStatusLine + 38, BITMAP_WX, sizeof(BITMAP_WX));
 	}
 	if (gEeprom.DUAL_WATCH != DUAL_WATCH_OFF) {
-		memcpy(gStatusLine + 45, BITMAP_TDR, sizeof(BITMAP_TDR));
+		memcpy(gStatusLine + 25, BITMAP_TDR, sizeof(BITMAP_TDR));
 	}
-	sprintf(StatusbarString, "%d.%02dÂ", gBatteryVoltageAverage / 100, gBatteryVoltageAverage % 100);
+	sprintf(StatusbarString, "%d.%02dV", gBatteryVoltageAverage / 100, gBatteryVoltageAverage % 100);
     UI_DisplayStatusbarString(92);
 	ST7565_BlitStatusLine();
 

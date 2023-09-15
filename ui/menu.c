@@ -35,23 +35,23 @@ static const char MenuList[][11] = {
 	"RX CTCSS", "TX DCS",   "TX CTCSS", "Shift to",
 	// 0x08
 	"Offset", "Bandwidth",     "Scrambler",    "Busy lock",
-	"MEM-CH", "Save",    "VOX",    "Backlight",
+	"Save Ch.", "Save",    "VOX",    "Backlight",
 	// 0x10
 	"Dual RX",    "Crossband",      "Beep",   "TX limit",
-    "SC-REV",  "Display",    "Autolock",   "Lock type",
+    "Scan mode",  "Display",    "Autolock",   "Lock type",
 	// 0x18
-	"S-ADD1", "S-ADD2",  "STE",    "RP-STE",
+	"Add to S1", "Add to S2",  "Tail tone",    "RP-STE",
 	"Mic gain",    "Fast call",  "Scanlist", "Scanlist 1",
 	// 0x20
 	"Scanlist 2",  "ANI-ID", "Upcode",
-	"Downcode", "D-ST",    "D-RSP",  "D-HOLD",
+	"Downcode", "Standby",    "Response",  "DTMF hold",
 	// 0x28
-	"D-PRE",  "PTT-ID",  "D-DCD",  "D-LIST",
+	"DTMF time",  "PTT-ID",  "Decoder",  "Contacts",
 	 "Roger",   "Battery",    "AM RX",
 	// 0x30
-	"DEL-CH", "F1 short", "F1 long", "F2 short", "F2 long",
-	"Reset", "Author", "ALL TX", "F-LOCK",
-    "200TX",   "500TX",  "350EN", "SCRAMBLER",
+	"Delete Ch.", "F1 short", "F1 long", "F2 short", "F2 long",
+	"Reset", "Author", "All TX", "F-Lock",
+    "200 MHz TX",   "500 MHz TX",  "350 EN", "Scrambler", "Calibrate",
 	// 0x38
 };
 
@@ -105,10 +105,10 @@ static const char gSubMenu_ABOUT[9] = {
 	"RebeZhir",
 };
 
-static const char gSubMenu_SC_REV[3][3] = {
-	"TO",
-	"CO",
-	"SE",
+static const char gSubMenu_SC_REV[3][10] = {
+	"Pause 5s",
+	"Keep RX",
+	"Full stop",
 };
 
 static const char gSubMenu_MDF[3][10] = {
@@ -141,7 +141,7 @@ static const char gSubMenu_PTT_ID[4][9] = {
 static const char gSubMenu_ROGER[3][9] = {
 	"Off",
 	"Standard",
-	"MDC",
+	"Frog",
 };
 
 static const char gSubMenu_FUNCTIONS[9][11] = {
@@ -185,9 +185,9 @@ void UI_DisplayMenu(void)
 	memset(gFrameBuffer, 0, sizeof(gFrameBuffer));
 
 
-	UI_PrintString(MenuList[gMenuCursor], 0, 127,  0, 10, true);
+	UI_PrintString(MenuList[gMenuCursor], 0, 127,  0, 11, true);
 	for (i = 4; i < 123; i++) {
-		gFrameBuffer[1][i] |= 0b10000000; //РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅР°СЏ Р»РёРЅРёСЏ
+		gFrameBuffer[1][i] |= 0b10000000; //горизонтальная линия
 	}
 	NUMBER_ToDigits(gMenuCursor + 1, String);
 	UI_DisplaySmallDigits(2, String + 6, 4, 6);
@@ -342,7 +342,7 @@ void UI_DisplayMenu(void)
 		break;
 
 	case MENU_S_LIST:
-		sprintf(String, "LIST%d", gSubMenuSelection);
+		sprintf(String, "List %d", gSubMenuSelection);
 		break;
 
 	case MENU_LOCK_TYPE:
@@ -409,6 +409,11 @@ void UI_DisplayMenu(void)
 	case MENU_F_LOCK:
 		strcpy(String, gSubMenu_F_LOCK[gSubMenuSelection]);
 		break;
+	
+	case MENU_CALIBRATION: 
+                sprintf(String, "%d.%02dV", gBatteryVoltageAverage / 100,
+                        gBatteryVoltageAverage % 100);
+                break;
 	}
 
 	UI_PrintString(String, 0, 127, 2, 10, true);
