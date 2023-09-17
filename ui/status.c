@@ -71,6 +71,7 @@ void UI_DisplayStatus(void)
 			memcpy(gStatusLine + 110, BITMAP_BatteryLevel5, sizeof(BITMAP_BatteryLevel5));
 		}
 	}*/
+	
 	if (gChargingWithTypeC) {
 		memcpy(gStatusLine + 80, BITMAP_USB_C, sizeof(BITMAP_USB_C));
 	}
@@ -89,9 +90,9 @@ void UI_DisplayStatus(void)
 	if (gEeprom.DUAL_WATCH != DUAL_WATCH_OFF) {
 		memcpy(gStatusLine + 25, BITMAP_TDR, sizeof(BITMAP_TDR));
 	}
-	sprintf(StatusbarString, "%d.%02dV", gBatteryVoltageAverage / 100, gBatteryVoltageAverage % 100);
+    sprintf(StatusbarString, "%d.%02dV",
+                        gBatteryVoltageAverage / 100,
+                        gBatteryVoltageAverage % 100);
     UI_DisplayStatusbarString(92);
-	ST7565_BlitStatusLine();
-
-}
-
+    ST7565_BlitStatusLine();
+        }

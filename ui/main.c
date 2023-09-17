@@ -199,19 +199,19 @@ void UI_DisplayMain(void)
 				Width = 15;
 				break;
 			case 2:
-				strcpy(String, "BAT LOW");
+				strcpy(String, "Discharged");
 				break;
 			case 3:
-				strcpy(String, "DISABLE");
+				strcpy(String, "Disabled");
 				break;
 			case 4:
-				strcpy(String, "TIMEOUT");
+				strcpy(String, "Timeout");
 				break;
 			case 5:
-				strcpy(String, "ALARM");
+				strcpy(String, "Alarm");
 				break;
 			case 6:
-				sprintf(String, "VOL HIGH");
+				sprintf(String, "Vol high");
 				Width = 8;
 				break;
 			}

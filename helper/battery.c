@@ -21,6 +21,7 @@
 #include "ui/menu.h"
 #include "ui/ui.h"
 
+
 uint16_t gBatteryCalibration[6];
 uint16_t gBatteryCurrentVoltage;
 uint16_t gBatteryCurrent;
@@ -81,8 +82,7 @@ void BATTERY_GetReadings(bool bDisplayBatteryLevel)
 	}
 
 	if (PreviousBatteryLevel != gBatteryDisplayLevel) {
-
-		if (gBatteryDisplayLevel < 2) {
+                if (gBatteryDisplayLevel < 2) {
 			gLowBattery = true;
 		} else {
 			gLowBattery = false;

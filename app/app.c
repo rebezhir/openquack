@@ -382,7 +382,7 @@ static void MR_NextChannel(void) {
         if (gCurrentScanList == 2) {
             gNextMrChannel = gPreviousMrChannel;
         } else {
-            goto Skip; //РµР±Р°С‚СЊ Р±С‹ РІР°СЃ РІ Р·Р°РґРЅРёС†Сѓ
+            goto Skip; //ебать бы вас в задницу
         }
     }
 
@@ -1160,7 +1160,7 @@ static void APP_ProcessKey(KEY_Code_t Key, bool bKeyPressed, bool bKeyHeld) {
     }
 
 
-//РЅРѕРІС‹Р№ РІР°СЂРёР°РЅС‚ РѕР±СЂР°Р±РѕС‚С‡РёРєР° РІС‹Р·С‹РІР°РµС‚СЃСЏ РЅРµР·Р°РІРёСЃРёРјРѕ РѕС‚ СЃС‚Р°С‚СѓСЃР° PTT
+//новый вариант обработчика вызывается независимо от статуса PTT
     if (gEeprom.KEY_LOCK && gCurrentFunction != FUNCTION_TRANSMIT)  {
 		if (Key == KEY_F) {
             if (!bKeyHeld) {
