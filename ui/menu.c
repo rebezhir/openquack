@@ -411,7 +411,7 @@ void UI_DisplayMenu(void)
 		break;
 	
 	case MENU_CALIBRATION: 
-        sprintf(String, "ADC=%d.%02dV", gBatteryVoltageAverage / 100, gBatteryVoltageAverage % 100);
+        sprintf(String, "%d.%02dV", gBatteryVoltageAverage / 100, gBatteryVoltageAverage % 100);
         break;
 	}
 
