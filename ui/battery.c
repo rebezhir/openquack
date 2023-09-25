@@ -23,7 +23,7 @@
 
 void UI_DisplayBattery(uint8_t Level)
 {
-	const uint8_t *pBitmap;
+/*	const uint8_t *pBitmap;
 	bool bClearMode = false;
 
 
@@ -50,6 +50,6 @@ void UI_DisplayBattery(uint8_t Level)
 			break;
 		}
 		ST7565_DrawLine(110, 0, 18, pBitmap, bClearMode);
-	}
+	}*/
 }
 

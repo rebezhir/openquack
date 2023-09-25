@@ -18,25 +18,25 @@
 
 #include <string.h>
 
+#include "app/action.h"
+#include "app/app.h"
 #include "app/dtmf.h"
 #include "app/generic.h"
 #include "app/scanner.h"
-#include "app/action.h"
-#include "app/app.h"
 #include "audio.h"
 #include "board.h"
 #include "bsp/dp32g030/gpio.h"
 #include "driver/backlight.h"
 #include "driver/gpio.h"
-#include "driver/keyboard.h"
+#include "driver/eeprom.h"
 #include "frequencies.h"
+#include "helper/battery.h"
 #include "misc.h"
 #include "settings.h"
 #include "sram-overlay.h"
 #include "ui/inputbox.h"
 #include "ui/menu.h"
 #include "ui/ui.h"
-
 
 static void Scan(int8_t Direction) {
     gCssScanMode = CSS_SCAN_MODE_SCANNING;
@@ -1039,6 +1039,12 @@ static void MENU_Key_UP_DOWN(bool bKeyPressed, bool bKeyHeld,
     gRequestDisplayScreen = DISPLAY_MENU;
 }
 
+static void MENU_CalibrateVoltage(void) {
+    BOARD_ADC_GetBatteryInfo(&gBatteryCurrentVoltage, &gBatteryCurrent);
+    gBatteryCalibration[3] = (uint16_t)(760 * gBatteryCurrentVoltage / 840);
+    EEPROM_WriteBuffer(0x1F40, gBatteryCalibration);
+}
+
 void MENU_ProcessKeys(KEY_Code_t Key, bool bKeyPressed, bool bKeyHeld) {
     switch (Key) {
         case KEY_0:
@@ -1054,7 +1060,10 @@ void MENU_ProcessKeys(KEY_Code_t Key, bool bKeyPressed, bool bKeyHeld) {
             MENU_Key_DIGITS(Key, bKeyPressed, bKeyHeld);
             break;
         case KEY_MENU:
-            MENU_Key_MENU(bKeyPressed, bKeyHeld);
+            if (gMenuCursor == MENU_CALIBRATION)
+                MENU_CalibrateVoltage();
+            else
+                MENU_Key_MENU(bKeyPressed, bKeyHeld);
             break;
         case KEY_UP:
             MENU_Key_UP_DOWN(bKeyPressed, bKeyHeld, 1);
