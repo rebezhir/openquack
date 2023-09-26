@@ -166,8 +166,7 @@ static void MAIN_Key_DIGITS(KEY_Code_t Key, bool bKeyPressed, bool bKeyHeld) {
             break;
 
         case KEY_8:
-            gTxVfo->FrequencyReverse = gTxVfo->FrequencyReverse == false;
-            gRequestSaveChannel = 1;
+            ACTION_Reverse();
             break;
 
         case KEY_9:

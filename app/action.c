@@ -163,6 +163,11 @@ void ACTION_VFOMR(void) {
     gBeepToPlay = BEEP_500HZ_60MS_DOUBLE_BEEP_OPTIONAL;
 }
 
+void ACTION_Reverse(void) {
+    gTxVfo->FrequencyReverse = gTxVfo->FrequencyReverse == false;
+    gRequestSaveChannel = 1;
+}
+
 void ACTION_Handle(KEY_Code_t Key, bool bKeyPressed, bool bKeyHeld) {
     uint8_t Short;
     uint8_t Long;
@@ -230,6 +235,9 @@ void ACTION_Handle(KEY_Code_t Key, bool bKeyPressed, bool bKeyHeld) {
             break;
         case 8:
             ACTION_1750();
+            break;
+        case 9:
+            ACTION_Reverse();
             break;
     }
 }

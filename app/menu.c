@@ -154,7 +154,7 @@ int MENU_GetLimits(uint8_t Cursor, uint8_t *pMin, uint8_t *pMax) {
 		case MENU_F2_SHORT:
 		case MENU_F2_LONG:
             *pMin = 0;
-            *pMax = 8;
+            *pMax = 9;
             break;
         default:
             return -1;

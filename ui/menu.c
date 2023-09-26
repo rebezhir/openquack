@@ -144,7 +144,7 @@ static const char gSubMenu_ROGER[3][9] = {
 	"Frog",
 };
 
-static const char gSubMenu_FUNCTIONS[9][11] = {
+static const char gSubMenu_FUNCTIONS[10][11] = {
 	"None",
 	"Flashlight",
 	"TX Power",
@@ -154,6 +154,7 @@ static const char gSubMenu_FUNCTIONS[9][11] = {
 	"VFO/MR",
 	"A/B",
 	"1750 Hz",
+	"Reverse",
 };
 
 static const char gSubMenu_RESET[2][4] = {
@@ -392,7 +393,8 @@ void UI_DisplayMenu(void)
 		break;
 
 	case MENU_VOL:
-		sprintf(String, "%d.%02dV", gBatteryVoltageAverage / 100, gBatteryVoltageAverage % 100);
+    case MENU_CALIBRATION:
+        sprintf(String, "%d.%02dV", gBatteryVoltageAverage / 100, gBatteryVoltageAverage % 100);
 		break;
 		
 	case MENU_F1_SHORT:
@@ -409,10 +411,6 @@ void UI_DisplayMenu(void)
 	case MENU_F_LOCK:
 		strcpy(String, gSubMenu_F_LOCK[gSubMenuSelection]);
 		break;
-	
-	case MENU_CALIBRATION: 
-        sprintf(String, "%d.%02dV", gBatteryVoltageAverage / 100, gBatteryVoltageAverage % 100);
-        break;
 	}
 
 	UI_PrintString(String, 0, 127, 2, 10, true);

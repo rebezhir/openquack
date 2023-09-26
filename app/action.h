@@ -29,6 +29,7 @@ void ACTION_SwitchAB(void);
 void ACTION_VFOMR(void);
 void ACTION_SwitchTDR(uint8_t Direct_State, bool Cycle);
 void ACTION_Handle(KEY_Code_t Key, bool bKeyPressed, bool bKeyHeld);
+void ACTION_Reverse(void);
 
 #endif
 
