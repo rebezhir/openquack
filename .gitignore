@@ -12,3 +12,4 @@ firmware
 .vscode/*.*
 openquack.code-workspace
 build.bat
+squelch-tuner/__pycache__/*.*
